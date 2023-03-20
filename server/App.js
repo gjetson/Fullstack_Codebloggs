@@ -9,11 +9,8 @@ require('dotenv').config('./.')
 const app = Express()
 const port = process.env.PORT || 3004
 
-// import routes
-// const HealthRoutes = require('./src/routes/health.routes')
-// const AgentRoutes = require('./src/routes/agent-routes')
-// const RegionRoutes = require('./src/routes/region-routes')
-// const TransactionRoutes = require('./src/routes/transaction-routes')
+const CommentRoutes = require('./src/routes/comment_routes')
+const PostRoutes = require('./src/routes/post_routes')
 const UserRoutes = require('./src/routes/user_routes')
 const SessionRoutes = require('./src/routes/session_routes')
 
@@ -28,10 +25,8 @@ app.use(Express.json())
 const { initLogger } = require('./src/utils/logger')
 initLogger(app, process.env)
 
-// HealthRoutes.registerHealthRoutes(app)
-// AgentRoutes.registerAgentRoutes(app)
-// RegionRoutes.registerRegionRoutes(app)
-// TransactionRoutes.registerTransactionRoutes(app)
+CommentRoutes.registerCommentRoutes(app)
+PostRoutes.registerPostRoutes(app)
 UserRoutes.registerUserRoutes(app)
 SessionRoutes.registerSessionRoutes(app)
 

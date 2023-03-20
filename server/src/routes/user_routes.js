@@ -1,12 +1,12 @@
-const UserController = require('../controllers/user_controller')
+const Controller = require('../controllers/user_controller')
 
 const registerUserRoutes = (app) => {
-    app.post('/user', UserController.createUser)
-    app.get('/users', UserController.getUsers)
-    app.get('/user/:id', UserController.getUser)
-    app.post('/user/update/:id', UserController.updateUser)
-    app.post('/user/login', UserController.loginUser)
-    app.delete('/user/delete/:id', UserController.deleteUser)
+    app.post('/user', Controller.createUser)
+    app.get('/users', Controller.getUsers)
+    app.get('/user/:id', Controller.getUser)
+    app.post('/user/update/:id', Controller.updateUser)
+    app.post('/user/login', Controller.loginUser)
+    app.delete('/user/delete/:id', Controller.deleteUser)
 }
 
 module.exports = { registerUserRoutes }
