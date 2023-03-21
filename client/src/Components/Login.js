@@ -1,6 +1,7 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
 
+
 const appStyle = {
 	height: '250px',
   	display: 'flex'
@@ -9,11 +10,11 @@ const appStyle = {
 const formStyle = {
     margin: 'auto',
     marginTop: '200px',
-    padding: '10px',
+    padding: '20px',
     border: '1px solid #c9c9c9',
     borderRadius: '5px',
     background: '#f5f5f5',
-    width: '220px',
+    width: '350px',
   	display: 'block'
 };
 
@@ -66,11 +67,16 @@ const Form = ({onSubmit}) => {
   };
   return (
     <form style={formStyle} onSubmit={handleSubmit} >
+      <img src="CodeBloggsLogo2.png" alt="CodeBloggs Logo" className="top-left-image" style={{position: 'fixed', top: 15, left: 15, height: 50}}/>
       <h1 style={{marginTop: '5px'}}>Login</h1>
       <Field ref={emailRef} label="Email:" type="text" />
       <Field ref={passwordRef} label="Password:" type="password" />
       <div>
-        <button style={submitStyle} type="button" onClick={handleSubmit}>Submit</button>
+        <button style={submitStyle} type="submit" onClick={handleSubmit}>Submit</button>
+      </div>
+      <div style={{ marginTop: '10px' }}>
+        Not a Member?{' '}
+        <a href="/register">Register here</a>.
       </div>
     </form>
   );
