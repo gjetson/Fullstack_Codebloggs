@@ -2,6 +2,7 @@ const Controller = require('../controllers/post_controller')
 
 const registerPostRoutes = (app) => {
     app.post('/post', Controller.createPost)
+    app.post('/post/like/:id', Controller.addLike)
     app.get('/posts', Controller.getPosts)
     app.get('/post/:id', Controller.getPost)
     app.post('/post/update/:id', Controller.updatePost)

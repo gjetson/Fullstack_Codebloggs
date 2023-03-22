@@ -21,6 +21,10 @@ const getPosts = async (req, res) => {
     }
 }
 
+const addLike = async (req, res) => {
+    _updatePost(req.params.id, { '$inc': { likes: '1' } }, res)
+}
+
 const getPost = async (req, res) => {
     try {
         const usr = await Post.findById(req.params.id)
@@ -37,21 +41,25 @@ const getPost = async (req, res) => {
 }
 
 const updatePost = async (req, res) => {
+    _updatePost(req.params.id, req.body, res)
+}
+
+const _updatePost = async (id, body, res) => {
     try {
-        console.log(req.params.id)
+        console.log(body)
         const usr = await Post.findByIdAndUpdate(
-            { _id: req.params.id },
-            req.body,
+            { _id: id },
+            body,
             { new: true, upsert: false })
         if (usr) {
-            res.status(200).json(usr)
+            res.status(201).json(usr)
         }
         else {
-            res.status(404).json({ err: `Post not found for id: ${req.params.id}` })
+            res.status(404).json({ err: `Post not found for id: ${id}` })
         }
     } catch (err) {
         if (err.kind === 'ObjectId' && err.name === 'CastError') {
-            const msg = `'${req.params.id}' is not an ID. It must be a string of 12 bytes or 24 hex characters or an integer.`
+            const msg = `'${id}' is not an ID. It must be a string of 12 bytes or 24 hex characters or an integer.`
             res.status(500).json({ error: msg })
         } else {
             console.error(err)
@@ -59,6 +67,7 @@ const updatePost = async (req, res) => {
         }
     }
 }
+
 
 const deletePost = async (req, res) => {
     try {
@@ -81,4 +90,4 @@ const deletePost = async (req, res) => {
     }
 }
 
-module.exports = { createPost, getPosts, getPost, updatePost, deletePost }
+module.exports = { createPost, addLike, getPosts, getPost, updatePost, deletePost }
