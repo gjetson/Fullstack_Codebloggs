@@ -18,7 +18,7 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.username })
+        const user = await User.findOne({ email: req.body.email })
         if (user) {
             const valid = await user.verifyPassword(req.body.password)
             if (valid) {
