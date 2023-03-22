@@ -27,7 +27,7 @@ export const SidebarData = [
     },
     {
         title: "Bloggs",
-        path: "/services",
+        path: "/bloggs",
         icon: <IoIcons.IoIosPaper />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -53,34 +53,34 @@ export const SidebarData = [
         // ],
     },
     {
-        title: "Contact",
-        path: "/contact",
+        title: "Network",
+        path: "/network",
         icon: <FaIcons.FaPhone />,
     },
-    {
-        title: "Events",
-        path: "/events",
-        icon: <FaIcons.FaEnvelopeOpenText />,
+    // {
+    //     title: "Events",
+    //     path: "/events",
+    //     icon: <FaIcons.FaEnvelopeOpenText />,
 
-        iconClosed: <RiIcons.RiArrowDownSFill />,
-        iconOpened: <RiIcons.RiArrowUpSFill />,
+    //     iconClosed: <RiIcons.RiArrowDownSFill />,
+    //     iconOpened: <RiIcons.RiArrowUpSFill />,
 
-        subNav: [
-            {
-                title: "Event 1",
-                path: "/events/events1",
-                icon: <IoIcons.IoIosPaper />,
-            },
-            {
-                title: "Event 2",
-                path: "/events/events2",
-                icon: <IoIcons.IoIosPaper />,
-            },
-        ],
-    },
-    {
-        title: "Support",
-        path: "/support",
-        icon: <IoIcons.IoMdHelpCircle />,
-    },
+    //     subNav: [
+    //         {
+    //             title: "Event 1",
+    //             path: "/events/events1",
+    //             icon: <IoIcons.IoIosPaper />,
+    //         },
+    //         {
+    //             title: "Event 2",
+    //             path: "/events/events2",
+    //             icon: <IoIcons.IoIosPaper />,
+    //         },
+    //     ],
+    // },
+    // {
+    //     title: "Support",
+    //     path: "/support",
+    //     icon: <IoIcons.IoMdHelpCircle />,
+    // },
 ]
