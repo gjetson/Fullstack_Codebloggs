@@ -30,4 +30,22 @@ function App() {
   )
 }
 
-export default App
+//components imports
+import LoginSubmit from "./components/Login";
+import RegisterSubmit from "./components/Register";
+
+
+
+
+const App = () => {
+    return (
+        <div>
+            <Routes>
+                <Route path="/login" element={<LoginSubmit />} />
+                <Route path="/register" element={<RegisterSubmit />} />
+            </Routes>
+        </div>
+    );
+};
+
+export default App;
