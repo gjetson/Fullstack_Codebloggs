@@ -2,7 +2,7 @@
 import Sidebar from "./components/Sidebar"
 import LoginSubmit from "./components/Login"
 import RegisterSubmit from "./components/Register"
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom"
+import { Routes, Route, BrowserRouter } from "react-router-dom"
 import { AboutUs, OurAim, OurVision } from "./tmp/pages/AboutUs"
 import { Services, ServicesOne, ServicesTwo, ServicesThree, } from "./tmp/pages/Services"
 import { Events, EventsOne, EventsTwo } from "./tmp/pages/Events"
