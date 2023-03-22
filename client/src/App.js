@@ -2,8 +2,8 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 //components imports
-import LoginSubmit from "./Components/Login";
-import RegisterSubmit from "./Components/Register";
+import LoginSubmit from "./components/Login";
+import RegisterSubmit from "./components/Register";
 
 
 
