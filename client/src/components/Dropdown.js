@@ -30,7 +30,9 @@ const Dropdown = styled.div`
 
 const NavItem = styled.div`
   margin-right: 10px;
-  position: relative;
+  position: absolute;
+  right: 0%;
+  margin-right: 30px;
 
   &:hover ${Dropdown} {
     display: block;
