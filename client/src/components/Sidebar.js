@@ -8,7 +8,7 @@ import SubMenu from "./SubMenu"
 import { IconContext } from "react-icons/lib"
 
 const Nav = styled.div`
-background: #15171c;
+background: #ff0000;
 height: 80px;
 display: flex;
 justify-content: flex-start;
@@ -25,7 +25,7 @@ align-items: center;
 `
 
 const SidebarNav = styled.nav`
-background: #15171c;
+background: #ff0000;
 width: 250px;
 height: 100vh;
 display: flex;
@@ -42,10 +42,11 @@ width: 100%;
 `
 
 const Sidebar = () => {
-    const [sidebar, setSidebar] = useState(false)
+    const [sidebar, setSidebar] = useState(true)
 
     const showSidebar = () => {
-        setSidebar(!sidebar)
+        // setSidebar(!sidebar)
+        setSidebar(true)
     }
 
     return (
