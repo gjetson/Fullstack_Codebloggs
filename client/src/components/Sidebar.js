@@ -6,6 +6,7 @@ import * as FaIcons from "react-icons/fa"
 import { SidebarData } from "./SidebarData"
 import SubMenu from "./SubMenu"
 import { IconContext } from "react-icons/lib"
+import DropdownButton from "./Dropdown"
 
 const Nav = styled.div`
 background: #8d88ea;
@@ -36,6 +37,9 @@ left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
 transition: 350ms;
 z-index: 10;
 `
+const LogoLink = styled(Link)`
+  display: block;
+`;
 
 const SidebarWrap = styled.div`
 width: 100%;
@@ -56,15 +60,10 @@ const Sidebar = () => {
                     <NavIcon to="#">
                         <FaIcons.FaBars onClick={showSidebar} />
                     </NavIcon>
-                    <h1
-
-                        style={{
-                            textAlign: "center",
-                            marginLeft: "200px",
-                            
-                        }}
-                    >
-                    </h1>
+                    <LogoLink to="/">
+                    <img src="CodeBloggsTitle2.png" style={{ marginLeft: "325%", marginRight: "225%", width: "200px" }} alt="CodeBloggs" />
+                    </LogoLink>
+                        <DropdownButton />
                 </Nav>
                 <SidebarNav sidebar={sidebar}>
                     <SidebarWrap>
