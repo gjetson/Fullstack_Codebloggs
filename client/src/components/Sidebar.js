@@ -37,6 +37,18 @@ left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
 transition: 350ms;
 z-index: 10;
 `
+const PostButton = styled(Link)`
+  background: #555;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: 10px;
+  text-decoration: none;
+  position: absolute;
+  right 0%;
+  margin-right: 150px
+`;
+
 const LogoLink = styled(Link)`
   display: block;
 `;
@@ -60,11 +72,13 @@ const Sidebar = () => {
                     <NavIcon to="#">
                         <FaIcons.FaBars onClick={showSidebar} />
                     </NavIcon>
+                    <PostButton>Create Post</PostButton>
                     <LogoLink to="/">
                     <img src="CodeBloggsTitle2.png" style={{ marginLeft: "325%", marginRight: "225%", width: "200px" }} alt="CodeBloggs" />
                     </LogoLink>
                         <DropdownButton />
                 </Nav>
+
                 <SidebarNav sidebar={sidebar}>
                     <SidebarWrap>
                         <NavIcon to="#">

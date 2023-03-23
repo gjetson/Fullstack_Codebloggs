@@ -49,7 +49,7 @@ const DropdownButton = () => {
     <Nav>
       <NavItem>
         <span>
-          Dropdown <Arrow>&#x25BC;</Arrow>
+          Account <Arrow>&#x25BC;</Arrow>
         </span>
         <Dropdown>
           <p>Item 1</p>
