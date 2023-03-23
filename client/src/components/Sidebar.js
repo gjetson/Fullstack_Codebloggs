@@ -57,13 +57,14 @@ const Sidebar = () => {
                         <FaIcons.FaBars onClick={showSidebar} />
                     </NavIcon>
                     <h1
+
                         style={{
                             textAlign: "center",
                             marginLeft: "200px",
-                            color: "green"
+                            
                         }}
                     >
-                        CodeBloggs
+                        <img src="CodeBloggsLogo2.png" alt="CodeBloggs Logo" className="top-left-image" style={{ position: 'fixed', top: 15, left: 100, height: 50 }} />
                     </h1>
                 </Nav>
                 <SidebarNav sidebar={sidebar}>

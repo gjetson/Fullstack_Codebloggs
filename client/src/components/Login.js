@@ -57,22 +57,35 @@ const Field = React.forwardRef(({label, type}, ref) => {
 const Form = ({onSubmit}) => {
   const emailRef = React.useRef();
   const passwordRef = React.useRef();
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
       e.preventDefault();
       const data = {
           email: emailRef.current.value,
           password: passwordRef.current.value
       };
+      const response = await fetch('http://localhost:3004/user/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        window.location.href = "/about-us";
+    } else {
+        console.error(response.statusText);
+    }
       onSubmit(data);
   };
   return (
     <form style={formStyle} onSubmit={handleSubmit} >
-      <img src="CodeBloggsLogo2.png" alt="CodeBloggs Logo" className="top-left-image" style={{position: 'fixed', top: 15, left: 15, height: 50}}/>
       <h1 style={{marginTop: '5px'}}>Login</h1>
       <Field ref={emailRef} label="Email:" type="text" />
       <Field ref={passwordRef} label="Password:" type="password" />
       <div>
-        <button style={submitStyle} type="submit" onClick={handleSubmit}>Submit</button>
+        <button style={submitStyle} type="submit" onClick={handleSubmit}>Login</button>
       </div>
       <div style={{ marginTop: '10px' }}>
         Not a Member?{' '}

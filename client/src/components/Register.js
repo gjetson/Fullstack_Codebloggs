@@ -2,8 +2,8 @@ import React from 'react';
 
 
 const appStyle = {
-	height: '250px',
-  	display: 'flex'
+    height: '250px',
+    display: 'flex'
 };
 
 const formStyle = {
@@ -48,41 +48,62 @@ const submitStyle = {
 };
 
 const Field = React.forwardRef(({ label, type }, ref) => {
-        return (
-            <div>
-                <label style={labelStyle}>{label}</label>
-                <input ref={ref} type={type} style={inputStyle} />
-            </div>
-        );
-    }
+    return (
+        <div>
+            <label style={labelStyle}>{label}</label>
+            <input ref={ref} type={type} style={inputStyle} />
+        </div>
+    );
+}
 );
 
 const RegistrationForm = ({ onSubmit }) => {
-    const ref = React.useRef();
-    const handleSubmit = (e) => {
+    const firstNameRef = React.useRef();
+    const lastNameRef = React.useRef();
+    const emailRef = React.useRef();
+    const birthDateRef = React.useRef();
+    const passwordRef = React.useRef();
+    const confirmRef = React.useRef();
+    const locationRef = React.useRef();
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const data = {
-            firstName: ref.current.value,
-            lastName: ref.current.value,
-            email: ref.current.value,
-            birthDate: ref.current.value,
-            password: ref.current.value,
-            confirmPassword: ref.current.value,
-            location: ref.current.value
+            first_name: firstNameRef.current.value,
+            last_name: lastNameRef.current.value,
+            email: emailRef.current.value,
+            birthday: birthDateRef.current.value,
+            password: passwordRef.current.value,
+            // confirmPassword: confirmRef.current.value,
+            location: locationRef.current.value
         };
-        onSubmit(data);
+        const response = await fetch('http://localhost:3004/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        if (response.ok) {
+            const json = await response.json();
+            console.log(json);
+            window.location.href = "/about-us"
+        } else {
+            console.error(response.statusText);
+        }
+        onSubmit(data)
     };
     return (
         <form style={formStyle} onSubmit={handleSubmit}>
-            <img src="CodeBloggsLogo2.png" alt="CodeBloggs Logo" className="top-left-image" style={{ position: 'fixed', top: 15, left: 15, height: 50 }} />
             <h1 style={{ marginTop: '5px' }}>Register</h1>
-            <Field ref={ref} label="Location:" type="text" required />
-            <Field ref={ref} label="First Name:" type="text" />
-            <Field ref={ref} label="Last Name:" type="text" />
-            <Field ref={ref} label="Email:" type="text" />
-            <Field ref={ref} label="Password:" type="password" />
-            <Field ref={ref} label="Birthdate:" type="date" />
-            <Field ref={ref} label="Confirm Password:" type="password" />
+            <Field ref={locationRef} label="Location:" type="text" />
+            <Field ref={firstNameRef} label="First Name:" type="text" />
+            <Field ref={lastNameRef} label="Last Name:" type="text" />
+            <Field ref={emailRef} label="Email:" type="text" />
+            <Field ref={passwordRef} label="Password:" type="password" />
+            <Field ref={birthDateRef} label="Birthdate:" type="date" />
+            <Field ref={confirmRef} label="Confirm Password:" type="password" />
             <div>
                 <button style={submitStyle} type="submit" onClick={handleSubmit}>
                     Register
@@ -103,10 +124,10 @@ const RegisterSubmit = () => {
         console.log(json);
     };
     return (
-      <div style={appStyle}>
-        <RegistrationForm onSubmit={handleSubmit} />
-      </div>
+        <div style={appStyle}>
+            <RegistrationForm onSubmit={handleSubmit} />
+        </div>
     );
-  };
+};
 
 export default RegisterSubmit;
