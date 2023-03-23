@@ -36,18 +36,26 @@ const getComment = async (req, res) => {
     }
 }
 
+const addLike = async (req, res) => {
+    _updatePost(req.params.id, { '$inc': { likes: '1' } }, res)
+}
+
 const updateComment = async (req, res) => {
+    _updatePost(req.params.id, req.body, res)
+}
+
+const _updatePost = async (id, body, res) => {
     try {
-        console.log(req.params.id)
+        console.log(id)
         const usr = await Comment.findByIdAndUpdate(
-            { _id: req.params.id },
-            req.body,
+            { _id: id },
+            body,
             { new: true, upsert: false })
         if (usr) {
             res.status(200).json(usr)
         }
         else {
-            res.status(404).json({ err: `Comment not found for id: ${req.params.id}` })
+            res.status(404).json({ err: `Comment not found for id: ${id}` })
         }
     } catch (err) {
         if (err.kind === 'ObjectId' && err.name === 'CastError') {
@@ -81,4 +89,4 @@ const deleteComment = async (req, res) => {
     }
 }
 
-module.exports = { createComment, getComments, getComment, updateComment, deleteComment }
+module.exports = { createComment, getComments, getComment, addLike, updateComment, deleteComment }
