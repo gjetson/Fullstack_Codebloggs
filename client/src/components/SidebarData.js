@@ -7,7 +7,7 @@ import * as RiIcons from "react-icons/ri"
 export const SidebarData = [
     {
         title: "Home",
-        path: "/about-us",
+        path: "/",
         icon: <AiIcons.AiFillHome />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -27,7 +27,7 @@ export const SidebarData = [
     },
     {
         title: "Bloggs",
-        path: "/services",
+        path: "/bloggs",
         icon: <IoIcons.IoIosPaper />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -52,35 +52,43 @@ export const SidebarData = [
         //     },
         // ],
     },
-    {
-        title: "Contact",
-        path: "/contact",
-        icon: <FaIcons.FaPhone />,
-    },
-    {
-        title: "Events",
-        path: "/events",
-        icon: <FaIcons.FaEnvelopeOpenText />,
 
+    {
+        title: "Network",
+        path: "/network",
+        icon: <FaIcons.FaUserFriends />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
-        iconOpened: <RiIcons.RiArrowUpSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />
+    }
+//     {
+//         title: "Contact",
+//         path: "/contact",
+//         icon: <FaIcons.FaPhone />,
+//     },
+//     {
+//         title: "Events",
+//         path: "/events",
+//         icon: <FaIcons.FaEnvelopeOpenText />,
 
-        subNav: [
-            {
-                title: "Event 1",
-                path: "/events/events1",
-                icon: <IoIcons.IoIosPaper />,
-            },
-            {
-                title: "Event 2",
-                path: "/events/events2",
-                icon: <IoIcons.IoIosPaper />,
-            },
-        ],
-    },
-    {
-        title: "Support",
-        path: "/support",
-        icon: <IoIcons.IoMdHelpCircle />,
-    },
+//         iconClosed: <RiIcons.RiArrowDownSFill />,
+//         iconOpened: <RiIcons.RiArrowUpSFill />,
+
+//         subNav: [
+//             {
+//                 title: "Event 1",
+//                 path: "/events/events1",
+//                 icon: <IoIcons.IoIosPaper />,
+//             },
+//             {
+//                 title: "Event 2",
+//                 path: "/events/events2",
+//                 icon: <IoIcons.IoIosPaper />,
+//             },
+//         ],
+//     },
+//     {
+//         title: "Support",
+//         path: "/support",
+//         icon: <IoIcons.IoMdHelpCircle />,
+//     },
 ]

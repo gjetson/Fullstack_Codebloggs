@@ -88,7 +88,7 @@ const RegistrationForm = ({ onSubmit }) => {
         if (response.ok) {
             const json = await response.json();
             console.log(json);
-            window.location.href = "/about-us"
+            window.location.href = "/login"
         } else {
             console.error(response.statusText);
         }

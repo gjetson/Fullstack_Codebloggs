@@ -2,13 +2,13 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import * as FaIcons from "react-icons/fa"
-import * as AiIcons from "react-icons/ai"
+// import * as AiIcons from "react-icons/ai"
 import { SidebarData } from "./SidebarData"
 import SubMenu from "./SubMenu"
 import { IconContext } from "react-icons/lib"
 
 const Nav = styled.div`
-background: #15171c;
+background: #8d88ea;
 height: 80px;
 display: flex;
 justify-content: flex-start;
@@ -25,7 +25,7 @@ align-items: center;
 `
 
 const SidebarNav = styled.nav`
-background: #15171c;
+background: #333333;
 width: 250px;
 height: 100vh;
 display: flex;
@@ -42,11 +42,12 @@ width: 100%;
 `
 
 const Sidebar = () => {
-    const [sidebar, setSidebar] = useState(false)
+    const [sidebar, setSidebar] = useState(true)
 
     const showSidebar = () => {
-        setSidebar(!sidebar)
-    }
+        // setSidebar(!sidebar) 
+        setSidebar(true)
+    } 
 
     return (
         <>
@@ -63,13 +64,12 @@ const Sidebar = () => {
                             
                         }}
                     >
-                        <img src="CodeBloggsLogo2.png" alt="CodeBloggs Logo" className="top-left-image" style={{ position: 'fixed', top: 15, left: 100, height: 50 }} />
                     </h1>
                 </Nav>
                 <SidebarNav sidebar={sidebar}>
                     <SidebarWrap>
                         <NavIcon to="#">
-                            <AiIcons.AiOutlineClose onClick={showSidebar} />
+                            <img src="Untitled.png" alt="CodeBloggs" className="top-left-image" style={{ position: "fixed", width: "50px", height: "50px", left: "20px" }} />
                         </NavIcon>
                         {SidebarData.map((item, index) => {
                             return <SubMenu item={item} key={index} />
