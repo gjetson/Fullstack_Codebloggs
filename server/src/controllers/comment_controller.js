@@ -52,7 +52,7 @@ const _updatePost = async (id, body, res) => {
             body,
             { new: true, upsert: false })
         if (usr) {
-            res.status(200).json(usr)
+            res.status(201).json(usr)
         }
         else {
             res.status(404).json({ err: `Comment not found for id: ${id}` })
