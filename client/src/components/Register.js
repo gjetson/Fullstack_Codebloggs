@@ -1,10 +1,13 @@
-import React from 'react';
+import React from 'react'
+import axios from 'axios'
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const appStyle = {
     height: '250px',
     display: 'flex'
-};
+}
 
 const formStyle = {
     margin: 'auto',
@@ -18,13 +21,13 @@ const formStyle = {
     gridTemplateColumns: '1fr 1fr',
     gridColumnGap: '25px',
     gridRowGap: '10px',
-};
+}
 
 const labelStyle = {
     margin: '10px 0 5px 0',
     fontFamily: 'Arial, Helvetica, sans-serif',
     fontSize: '15px',
-};
+}
 
 const inputStyle = {
     margin: '5px 0 10px 0',
@@ -33,7 +36,7 @@ const inputStyle = {
     borderRadius: '3px',
     boxSizing: 'border-box',
     width: '100%'
-};
+}
 
 const submitStyle = {
     margin: '10px 0 0 0',
@@ -45,89 +48,95 @@ const submitStyle = {
     fontSize: '15px',
     color: 'white',
     display: 'block'
-};
-
-const Field = React.forwardRef(({ label, type }, ref) => {
-    return (
-        <div>
-            <label style={labelStyle}>{label}</label>
-            <input ref={ref} type={type} style={inputStyle} />
-        </div>
-    );
 }
-);
 
-const RegistrationForm = ({ onSubmit }) => {
-    const firstNameRef = React.useRef();
-    const lastNameRef = React.useRef();
-    const emailRef = React.useRef();
-    const birthDateRef = React.useRef();
-    const passwordRef = React.useRef();
-    const confirmRef = React.useRef();
-    const locationRef = React.useRef();
+const RegisterSubmit = ({ history }) => {
 
+    const firstNameRef = React.useRef()
+    const lastNameRef = React.useRef()
+    const emailRef = React.useRef()
+    const birthDateRef = React.useRef()
+    const passwordRef = React.useRef()
+    const confirmRef = React.useRef()
+    const locationRef = React.useRef()
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const data = {
             first_name: firstNameRef.current.value,
             last_name: lastNameRef.current.value,
             email: emailRef.current.value,
             birthday: birthDateRef.current.value,
             password: passwordRef.current.value,
-            // confirmPassword: confirmRef.current.value,
+            confirmPassword: confirmRef.current.value,
             location: locationRef.current.value
-        };
-        const response = await fetch('http://localhost:3004/user', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        if (response.ok) {
-            const json = await response.json();
-            console.log(json);
-            window.location.href = "/login"
-        } else {
-            console.error(response.statusText);
         }
-        onSubmit(data)
-    };
-    return (
-        <form style={formStyle} onSubmit={handleSubmit}>
-            <h1 style={{ marginTop: '5px' }}>Register</h1>
-            <Field ref={locationRef} label="Location:" type="text" />
-            <Field ref={firstNameRef} label="First Name:" type="text" />
-            <Field ref={lastNameRef} label="Last Name:" type="text" />
-            <Field ref={emailRef} label="Email:" type="text" />
-            <Field ref={passwordRef} label="Password:" type="password" />
-            <Field ref={birthDateRef} label="Birthdate:" type="date" />
-            <Field ref={confirmRef} label="Confirm Password:" type="password" />
-            <div>
-                <button style={submitStyle} type="submit" onClick={handleSubmit}>
-                    Register
-                </button>
-            </div>
-            <div style={{ marginTop: '10px' }}>
-                Already a Member?{' '}
-                <a href="/login">Login here</a>.
-            </div>
-        </form>
-    );
-};
+        register(data)
+    }
 
-const RegisterSubmit = () => {
-    const handleSubmit = data => {
-        const json = JSON.stringify(data, null, 4);
-        console.clear();
-        console.log(json);
-    };
+    const clearForm = () => {
+        firstNameRef.current.value = ''
+        lastNameRef.current.value = ''
+        emailRef.current.value = ''
+        birthDateRef.current.value = ''
+        passwordRef.current.value = ''
+        confirmRef.current.value = ''
+        locationRef.current.value = ''
+    }
+
+    const register = async (body) => {
+        try {
+            const res = await axios.post("http://localhost:3004/user", body)
+            console.log(res.data)
+            if (res && res.status === 201) {
+                toast.success('User created. Please login.', { onClose: () => { history.push('/login') } })
+            }
+        } catch (error) {
+            if (error.response.status === 401) {
+                toast.error(`Email: '${emailRef.current.value}' is NOT unique! Cannot create user. Try again.`, { onClose: clearForm })
+            } else {
+                console.error(error)
+            }
+        }
+    }
+
+
+    const Field = React.forwardRef(({ label, type }, ref) => {
+        return (
+            <div>
+                <label style={labelStyle}>{label}</label>
+                <input ref={ref} type={type} style={inputStyle} />
+            </div>
+        )
+    })
+
     return (
         <div style={appStyle}>
-            <RegistrationForm onSubmit={handleSubmit} />
+            <form style={formStyle} onSubmit={handleSubmit}>
+                <h1 style={{ marginTop: '5px' }}>Register</h1>
+                <Field ref={locationRef} label="Location:" type="text" />
+                <Field ref={firstNameRef} label="First Name:" type="text" />
+                <Field ref={lastNameRef} label="Last Name:" type="text" />
+                <Field ref={emailRef} label="Email:" type="text" />
+                <Field ref={passwordRef} label="Password:" type="password" />
+                <Field ref={birthDateRef} label="Birthdate:" type="date" />
+                <Field ref={confirmRef} label="Confirm Password:" type="password" />
+                <div>
+                    <button style={submitStyle} type="submit" onClick={handleSubmit}>
+                        Register
+                    </button>
+                </div>
+                <div style={{ marginTop: '10px' }}>
+                    Already a Member?{' '}
+                    <a href="/login">Login here</a>.
+                </div>
+            </form>
+            <ToastContainer
+                position="top-center"
+                theme="colored"
+            />
         </div>
-    );
-};
+    )
+}
 
-export default RegisterSubmit;
+export default RegisterSubmit

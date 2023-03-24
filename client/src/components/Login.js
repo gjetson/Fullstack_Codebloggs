@@ -1,5 +1,10 @@
 import React from 'react'
-// import ReactDOM from 'react-dom';
+import axios from 'axios'
+
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import useCookie from 'react-use-cookie'
+import { useStore } from '../util/store'
 
 const appStyle = {
   height: '250px',
@@ -44,16 +49,11 @@ const submitStyle = {
   display: 'block'
 }
 
-const Field = React.forwardRef(({ label, type }, ref) => {
-  return (
-    <div>
-      <label style={labelStyle} >{label}</label>
-      <input ref={ref} type={type} style={inputStyle} />
-    </div>
-  )
-})
+function LoginSubmit({ history }) {
+  const [userToken, setUserToken] = useCookie('token', '0')
+  const session = useStore((state) => state.session)
+  const setSession = useStore((state) => state.setSession)
 
-const Form = ({ onSubmit }) => {
   const emailRef = React.useRef()
   const passwordRef = React.useRef()
   const handleSubmit = async (e) => {
@@ -62,51 +62,57 @@ const Form = ({ onSubmit }) => {
       email: emailRef.current.value,
       password: passwordRef.current.value
     }
-    const response = await fetch('http://localhost:3004/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    if (response.ok) {
-      const json = await response.json()
-      console.log(json)
-      window.location.href = "/about-us"
-    } else {
-      console.error(response.statusText)
+    login(data)
+  }
+
+  const login = async (data) => {
+    try {
+      const res = await axios.post(`http://localhost:3004/user/login`, data)
+      console.log(res)
+      if (res && res.status === 201) {
+        console.log(res.data)
+        console.log('token: ', res.data.session.token)
+        setUserToken(res.data.session.token)
+
+        console.log('session: ', session)
+        // update zustand with session and user
+        setSession('bob')
+        console.log('session: ', session)
+      }
+      return {}
+    } catch (err) {
+      console.error(err)
     }
-    onSubmit(data)
   }
-  return (
-    <form style={formStyle} onSubmit={handleSubmit} >
-      <h1 style={{ marginTop: '5px' }}>Login</h1>
-      <Field ref={emailRef} label="Email:" type="text" />
-      <Field ref={passwordRef} label="Password:" type="password" />
+
+  const Field = React.forwardRef(({ label, type }, ref) => {
+    return (
       <div>
-        <button style={submitStyle} type="submit" onClick={handleSubmit}>Login</button>
+        <label style={labelStyle} >{label}</label>
+        <input ref={ref} type={type} style={inputStyle} />
       </div>
-      <div style={{ marginTop: '10px' }}>
-        Not a Member?{' '}
-        <a href="/register">Register here</a>.
-      </div>
-    </form>
-  )
-}
+    )
+  })
 
-// Usage example:
-
-const LoginSubmit = () => {
-  const handleSubmit = data => {
-    const json = JSON.stringify(data, null, 4)
-    console.clear()
-    console.log(json)
-  }
   return (
     <div style={appStyle}>
-      <Form onSubmit={handleSubmit} />
+      <form style={formStyle} onSubmit={handleSubmit} >
+        <h1 style={{ marginTop: '5px' }}>Login</h1>
+        <Field ref={emailRef} label="Email:" type="text" />
+        <Field ref={passwordRef} label="Password:" type="password" />
+        <div>
+          <button style={submitStyle} type="submit" onClick={handleSubmit}>Login</button>
+        </div>
+        <div style={{ marginTop: '10px' }}>
+          Not a Member?{' '}
+          <a href="/register">Register here</a>.
+        </div>
+      </form>
+      <ToastContainer
+        position="top-center"
+        theme="colored"
+      />
     </div>
   )
 }
-
 export default LoginSubmit

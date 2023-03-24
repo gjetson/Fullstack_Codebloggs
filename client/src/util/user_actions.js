@@ -3,29 +3,11 @@ import useCookie from 'react-use-cookie'
 import axios from 'axios'
 import { history } from './history'
 
-
 export { useUserActions }
 
 function useUserActions() {
 
     const [userToken, setUserToken] = useCookie('token', '0')
-
-    const login = async (username, password) => {
-        try {
-            const res = await axios.post(`http://localhost:3004/user/login`, { username, password })
-            if (res && res.ok) {
-                console.log(res.data)
-                setUserToken(res.data.session.token)
-
-                // update zustand with session and user
-
-                return res.data
-            }
-            return {}
-        } catch (err) {
-            console.error(err)
-        }
-    }
 
     const authSession = async (token) => {
         try {
@@ -38,6 +20,7 @@ function useUserActions() {
             console.error(err)
         }
     }
+
 
     const logout = () => {
         // set token to zero
