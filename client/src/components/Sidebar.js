@@ -10,7 +10,7 @@ import DropdownButton from "./Dropdown"
 
 const Nav = styled.div`
 background: #8d88ea;
-height: 80px;
+height: 100px;
 display: flex;
 justify-content: flex-start;
 align-items: center;
@@ -19,7 +19,7 @@ align-items: center;
 const NavIcon = styled(Link)`
 margin-left: 2rem;
 font-size: 2rem;
-height: 80px;
+height: 100px;
 display: flex;
 justify-content: flex-start;
 align-items: center;
@@ -47,11 +47,11 @@ const PostButton = styled(Link)`
   position: absolute;
   right 0%;
   margin-right: 150px
-`;
+`
 
 const LogoLink = styled(Link)`
   display: block;
-`;
+`
 
 const SidebarWrap = styled.div`
 width: 100%;
@@ -63,7 +63,10 @@ const Sidebar = () => {
     const showSidebar = () => {
         // setSidebar(!sidebar) 
         setSidebar(true)
-    } 
+    }
+    const postHandler = () => {
+        console.log('click')
+    }
 
     return (
         <>
@@ -72,11 +75,11 @@ const Sidebar = () => {
                     <NavIcon to="#">
                         <FaIcons.FaBars onClick={showSidebar} />
                     </NavIcon>
-                    <PostButton>Create Post</PostButton>
+                    <PostButton onClick={postHandler}>Create Post</PostButton>
                     <LogoLink to="/">
-                    <img src="CodeBloggsTitle2.png" style={{ marginLeft: "325%", marginRight: "225%", width: "200px" }} alt="CodeBloggs" />
+                        <img src="/home/odinzi/dev/CodeBoxx/Fullstack_Codebloggs/client/src/img/CodeBloggs-logo2.png" style={{ marginLeft: "325%", marginRight: "225%", width: "200px" }} alt="CodeBloggs" />
                     </LogoLink>
-                        <DropdownButton />
+                    <DropdownButton />
                 </Nav>
 
                 <SidebarNav sidebar={sidebar}>

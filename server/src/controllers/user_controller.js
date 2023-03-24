@@ -18,7 +18,7 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email })
+        const user = await User.findOne({ email: req.body.username })
         if (user) {
             const valid = await user.verifyPassword(req.body.password)
             if (valid) {
@@ -26,14 +26,14 @@ const loginUser = async (req, res) => {
                 const sesh = await SessionConn.createSessionByUserId(user._id)
                 if (sesh) {
                     console.log('Session: ', sesh)
-                    res.status(201).json(sesh)
+                    res.status(201).json({ user: user, session: sesh })
                 }
             } else {
-                res.status(401).json({ msg: "false" })
+                res.status(401).json({})
             }
         }
         else {
-            res.status(403).json(`user not found for '${req.body.email}'`)
+            res.status(403).json(`user not found for '${req.body.username}'`)
         }
     } catch (err) {
         console.error(err)
