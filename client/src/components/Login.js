@@ -1,9 +1,12 @@
 import React from 'react'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
+import { useRecoilState } from 'recoil'
 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import useCookie from 'react-use-cookie'
+import { userAtom } from '../state/user'
 
 const appStyle = {
   height: '250px',
@@ -49,7 +52,10 @@ const submitStyle = {
 }
 
 function LoginSubmit({ history }) {
-  const [userToken, setUserToken] = useCookie('token', '0')
+  const [, setUserToken] = useCookie('token', '0')
+  const [, setUser] = useRecoilState(userAtom)
+  const navigate = useNavigate()
+
 
   const emailRef = React.useRef()
   const passwordRef = React.useRef()
@@ -69,7 +75,9 @@ function LoginSubmit({ history }) {
       if (res && res.status === 201) {
         console.log(res.data)
         console.log('token: ', res.data.session.token)
-        setUserToken(res.data.session.token)
+        setUserToken(res.data.session.token, { days: 1 })
+        setUser(res.data.user)
+        return navigate('/')
       }
     } catch (err) {
       console.error(err)

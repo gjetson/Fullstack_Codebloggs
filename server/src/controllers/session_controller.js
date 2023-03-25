@@ -67,9 +67,9 @@ const getSessions = async (req, res) => {
     }
 }
 
-const getSession = async (req, res) => {
+const getSessionByToken = async (req, res) => {
     try {
-        const sesh = await Session.findById(req.params.id).populate('user')
+        const sesh = await Session.findOne({ token: req.params.token }).populate('user')
         res.status(200).json(sesh)
     } catch (err) {
         console.error(err)
@@ -96,4 +96,4 @@ const deleteSession = async (req, res) => {
     }
 }
 
-module.exports = { createSession, createSessionByUserId, getSessionByUserId, authenticateSession, getSessions, getSession, deleteSession, deleteSessionByUserId }
+module.exports = { createSession, createSessionByUserId, getSessionByUserId, authenticateSession, getSessions, getSessionByToken, deleteSession, deleteSessionByUserId }
