@@ -92,7 +92,7 @@ function LoginSubmit({ history }) {
         <Field ref={emailRef} label="Email:" type="email" />
         <Field ref={passwordRef} label="Password:" type="password" />
         <div>
-          <button style={submitStyle} type="submit" onClick={handleSubmit}>Login</button>
+          <button style={submitStyle} type="submit" >Login</button>
         </div>
         <div style={{ marginTop: '10px' }}>
           Not a Member?{' '}

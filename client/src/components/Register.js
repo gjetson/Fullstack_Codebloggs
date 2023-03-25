@@ -105,7 +105,7 @@ const RegisterSubmit = ({ history }) => {
         return (
             <div>
                 <label style={labelStyle}>{label}</label>
-                <input ref={ref} type={type} style={inputStyle} />
+                <input ref={ref} type={type} style={inputStyle} required />
             </div>
         )
     })
@@ -117,12 +117,12 @@ const RegisterSubmit = ({ history }) => {
                 <Field ref={locationRef} label="Location:" type="text" />
                 <Field ref={firstNameRef} label="First Name:" type="text" />
                 <Field ref={lastNameRef} label="Last Name:" type="text" />
-                <Field ref={emailRef} label="Email:" type="text" />
+                <Field ref={emailRef} label="Email:" type="email" />
                 <Field ref={passwordRef} label="Password:" type="password" />
                 <Field ref={birthDateRef} label="Birthdate:" type="date" />
                 <Field ref={confirmRef} label="Confirm Password:" type="password" />
                 <div>
-                    <button style={submitStyle} type="submit" onClick={handleSubmit}>
+                    <button style={submitStyle} type="submit">
                         Register
                     </button>
                 </div>
