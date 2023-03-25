@@ -4,7 +4,6 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import useCookie from 'react-use-cookie'
-import { useStore } from '../util/store'
 
 const appStyle = {
   height: '250px',
@@ -51,8 +50,6 @@ const submitStyle = {
 
 function LoginSubmit({ history }) {
   const [userToken, setUserToken] = useCookie('token', '0')
-  const session = useStore((state) => state.session)
-  const setSession = useStore((state) => state.setSession)
 
   const emailRef = React.useRef()
   const passwordRef = React.useRef()
@@ -73,13 +70,7 @@ function LoginSubmit({ history }) {
         console.log(res.data)
         console.log('token: ', res.data.session.token)
         setUserToken(res.data.session.token)
-
-        console.log('session: ', session)
-        // update zustand with session and user
-        setSession('bob')
-        console.log('session: ', session)
       }
-      return {}
     } catch (err) {
       console.error(err)
     }
@@ -89,7 +80,7 @@ function LoginSubmit({ history }) {
     return (
       <div>
         <label style={labelStyle} >{label}</label>
-        <input ref={ref} type={type} style={inputStyle} />
+        <input ref={ref} type={type} style={inputStyle} required />
       </div>
     )
   })
@@ -98,7 +89,7 @@ function LoginSubmit({ history }) {
     <div style={appStyle}>
       <form style={formStyle} onSubmit={handleSubmit} >
         <h1 style={{ marginTop: '5px' }}>Login</h1>
-        <Field ref={emailRef} label="Email:" type="text" />
+        <Field ref={emailRef} label="Email:" type="email" />
         <Field ref={passwordRef} label="Password:" type="password" />
         <div>
           <button style={submitStyle} type="submit" onClick={handleSubmit}>Login</button>
