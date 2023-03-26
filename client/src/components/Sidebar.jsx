@@ -2,11 +2,18 @@ import React, { useState } from 'react'
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import * as FaIcons from "react-icons/fa"
-// import * as AiIcons from "react-icons/ai"
+import axios from 'axios'
+
 import { SidebarData } from "./SidebarData"
 import SubMenu from "./SubMenu"
 import { IconContext } from "react-icons/lib"
 import DropdownButton from "./Dropdown"
+import Post from './Post'
+import { confirmAlert } from "react-confirm-alert"
+import "react-confirm-alert/src/react-confirm-alert.css"
+
+import { useRecoilState } from 'recoil'
+import { userAtom } from '../state/user'
 
 const Nav = styled.div`
 background: #8d88ea;
@@ -59,6 +66,7 @@ width: 100%;
 
 const Sidebar = () => {
     const [sidebar, setSidebar] = useState(true)
+    const [user, setUser] = useRecoilState(userAtom)
 
     const showSidebar = () => {
         // setSidebar(!sidebar) 
@@ -66,6 +74,33 @@ const Sidebar = () => {
     }
     const postHandler = () => {
         console.log('click')
+        confirmAlert({
+            customUI: ({ onClose }) => {
+
+                return (
+                    // <Confirm msg={'update'} onClose={onClose} onConfirm={() => { editAgent(); onClose() }} />
+                    <Post onClose={onClose} onConfirm={(post) => { sendPost(post); onClose() }} />
+                )
+            }
+        })
+    }
+
+    const sendPost = async (post) => {
+        const body = {
+            content: post,
+            user: user._id
+        }
+        console.log('body: ', body)
+        try {
+            const res = await axios.post(`http://localhost:3004/post`, body)
+            console.log(res)
+            if (res && res.status === 201) {
+                return true
+            }
+            return false
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return (
