@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import * as FaIcons from "react-icons/fa"
@@ -69,7 +69,7 @@ const Sidebar = () => {
     }
 
     return (
-        <>
+        <React.Fragment>
             <IconContext.Provider value={{ color: "#fff" }}>
                 <Nav>
                     <NavIcon to="#">
@@ -93,7 +93,7 @@ const Sidebar = () => {
                     </SidebarWrap>
                 </SidebarNav>
             </IconContext.Provider>
-        </>
+        </React.Fragment>
     )
 }
 

@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
 const Nav = styled.div`
   display: flex;
@@ -9,12 +9,12 @@ const Nav = styled.div`
   background: #8d88ea;
   color: #fff;
   padding: 0 20px;
-`;
+`
 
 const Logo = styled.div`
   display: flex;
   align-items: center;
-`;
+`
 
 const Dropdown = styled.div`
   display: none;
@@ -26,7 +26,7 @@ const Dropdown = styled.div`
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   padding: 10px;
-`;
+`
 
 const NavItem = styled.div`
   margin-right: 10px;
@@ -37,12 +37,12 @@ const NavItem = styled.div`
   &:hover ${Dropdown} {
     display: block;
   }
-`;
+`
 
 const Arrow = styled.span`
   margin-left: 5px;
   font-size: 0.8em;
-`;
+`
 
 const DropdownButton = () => {
   return (
@@ -58,7 +58,7 @@ const DropdownButton = () => {
         </Dropdown>
       </NavItem>
     </Nav>
-  );
-};
+  )
+}
 
-export default DropdownButton;
+export default DropdownButton

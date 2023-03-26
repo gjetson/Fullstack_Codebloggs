@@ -29,14 +29,17 @@ function useUserActions() {
         const token = getCookie('token')
         if (!token || token === '0') {
             console.log('token: ', token)
-            return navigate('/login')
+            navigate('/login')
+            return false
         } else if (!auth || auth !== token) {
             const valid = await authenticate(token)
             console.log('auth: ', valid)
             if (valid) {
                 setAuth(token)
+                return true
             } else {
                 logout()
+                return false
             }
         }
     }
