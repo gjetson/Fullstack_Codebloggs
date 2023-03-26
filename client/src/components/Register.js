@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios'
-
+import { useNavigate } from "react-router-dom"
+import { useUserActions } from '../util/user_actions'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -50,7 +51,14 @@ const submitStyle = {
     display: 'block'
 }
 
-const RegisterSubmit = ({ history }) => {
+const RegisterSubmit = () => {
+    const userActions = useUserActions()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        userActions.authAltSession()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const firstNameRef = React.useRef()
     const lastNameRef = React.useRef()
@@ -89,7 +97,7 @@ const RegisterSubmit = ({ history }) => {
             const res = await axios.post("http://localhost:3004/user", body)
             console.log(res.data)
             if (res && res.status === 201) {
-                toast.success('User created. Please login.', { onClose: () => { history.push('/login') } })
+                toast.success('User created. Please login.', { onClose: () => { navigate('/login') } })
             }
         } catch (error) {
             if (error.response.status === 401) {
@@ -99,7 +107,6 @@ const RegisterSubmit = ({ history }) => {
             }
         }
     }
-
 
     const Field = React.forwardRef(({ label, type }, ref) => {
         return (

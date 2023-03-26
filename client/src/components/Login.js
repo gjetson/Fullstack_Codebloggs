@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useRecoilState } from 'recoil'
+import { useUserActions } from '../util/user_actions'
 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import useCookie from 'react-use-cookie'
 import { userAtom } from '../state/user'
+
 
 const appStyle = {
   height: '250px',
@@ -51,10 +53,16 @@ const submitStyle = {
   display: 'block'
 }
 
-function LoginSubmit({ history }) {
+function LoginSubmit() {
   const [, setUserToken] = useCookie('token', '0')
   const [, setUser] = useRecoilState(userAtom)
   const navigate = useNavigate()
+  const userActions = useUserActions()
+
+  useEffect(() => {
+    userActions.authAltSession()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
 
   const emailRef = React.useRef()
@@ -73,7 +81,6 @@ function LoginSubmit({ history }) {
       const res = await axios.post(`http://localhost:3004/user/login`, data)
       console.log(res)
       if (res && res.status === 201) {
-        console.log(res.data)
         console.log('token: ', res.data.session.token)
         setUserToken(res.data.session.token, { days: 1 })
         setUser(res.data.user)
