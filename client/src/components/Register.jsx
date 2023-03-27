@@ -51,12 +51,12 @@ const submitStyle = {
     display: 'block'
 }
 
-const RegisterSubmit = () => {
+const Register = () => {
     const userActions = useUserActions()
     const navigate = useNavigate()
 
     useEffect(() => {
-        userActions.authAltSession()
+        userActions.authSession()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -146,4 +146,4 @@ const RegisterSubmit = () => {
     )
 }
 
-export default RegisterSubmit
+export default Register

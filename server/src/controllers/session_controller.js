@@ -69,8 +69,15 @@ const getSessions = async (req, res) => {
 
 const getSessionByToken = async (req, res) => {
     try {
+        console.log('token: ', req.params.token)
         const sesh = await Session.findOne({ token: req.params.token }).populate('user')
-        res.status(200).json(sesh)
+        console.log(sesh)
+        if (sesh) {
+            res.status(200).json(sesh)
+        } else {
+            console.log('400')
+            res.status(400).json({ token: req.params.token })
+        }
     } catch (err) {
         console.error(err)
         res.status(500).send({ error: err })

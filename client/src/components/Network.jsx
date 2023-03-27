@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useUserActions } from '../util/user_actions'
+import React from 'react'
 
 const users = [
     {
@@ -35,13 +34,7 @@ const users = [
   ];
 
 export default function Network() {
-    const userActions = useUserActions()
 
-    useEffect(() => {
-        userActions.authSession()
-        userActions.initUser()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     return (
             <div style={{ display: 'flex', flexWrap: 'wrap', marginLeft: '20%'}}>

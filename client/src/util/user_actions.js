@@ -2,92 +2,44 @@ import { useNavigate } from "react-router-dom"
 import { setCookie, getCookie } from 'react-use-cookie'
 import axios from 'axios'
 import { useRecoilState } from 'recoil'
-import { authAtom } from '../state/auth'
-import { userAtom } from '../state/user'
+import { sessionAtom } from '../state/session'
 
 export { useUserActions }
 
 function useUserActions() {
-    const [auth, setAuth] = useRecoilState(authAtom)
-    const [user, setUser] = useRecoilState(userAtom)
+    const [, setSession] = useRecoilState(sessionAtom)
     const navigate = useNavigate()
 
-    const authenticate = async (token) => {
+    const authSession = async () => {
         try {
-            const res = await axios.post(`http://localhost:3004/session/authenticate/${token}`, {})
-            console.log(res)
-            if (res && res.status === 200) {
-                return true
+            console.log('authSession')
+            const token = getCookie('token')
+            if (token && token === '0') {
+                logout()
+            } else {
+                const res = await axios.get(`http://localhost:3004/session/${token}`)
+                console.log(res)
+                if (res.status === 200) {
+                    console.log('data: ', res.data)
+                    let sesh = res.data.user
+                    sesh.token = res.data.token
+                    console.log('sesh: ', sesh)
+                    setSession(sesh)
+                    navigate('/')
+                }
             }
-            return false
         } catch (err) {
             console.error(err)
-        }
-    }
-
-    const authSession = async () => {
-        const token = getCookie('token')
-        if (!token || token === '0') {
-            console.log('token: ', token)
-            navigate('/login')
-            return false
-        } else if (!auth || auth !== token) {
-            const valid = await authenticate(token)
-            console.log('auth: ', valid)
-            if (valid) {
-                setAuth(token)
-                return true
-            } else {
-                logout()
-                return false
-            }
-        }
-    }
-
-    const authAltSession = async () => {
-        const token = getCookie('token')
-        if (token && token !== '0') {
-            if (auth) {
-                console.log('token: ', token)
-                return navigate('/')
-            } else {
-                const valid = await authenticate(token)
-                console.log('auth: ', valid)
-                if (valid) {
-                    setAuth(1)
-                    return navigate('/')
-                }
-            }
-        }
-    }
-
-    const initUser = async () => {
-        const token = getCookie('token')
-        if (token && token !== '0') {
-            console.log('initUser')
-            if (!user) {
-                try {
-                    const res = await axios.get(`http://localhost:3004/session/${token}`)
-                    if (res && res.status === 200) {
-                        console.log('setUser: ', res.data.user)
-                        setUser(res.data.user)
-                        return
-                    }
-                } catch (err) {
-                    console.error(err)
-                }
-            }
+            logout()
         }
     }
 
     const logout = () => {
         // set token to zero
         setCookie('token', '0')
-        setAuth(0)
-        setUser(0)
-        navigate('/login')
+        setSession(0)
     }
 
-    return { authSession, authAltSession, initUser, logout }
+    return { authSession, logout }
 
 }
