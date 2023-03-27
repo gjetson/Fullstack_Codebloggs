@@ -112,7 +112,7 @@ const Sidebar = () => {
                     </NavIcon>
                     <PostButton onClick={postHandler}>Create Post</PostButton>
                     <LogoLink to="/">
-                        <img src="/home/odinzi/dev/CodeBoxx/Fullstack_Codebloggs/client/src/img/CodeBloggs-logo2.png" style={{ marginLeft: "325%", marginRight: "225%", width: "200px" }} alt="CodeBloggs" />
+                        <img src="CodeBloggsTitle2.png" style={{ marginLeft: "325%", marginRight: "225%", width: "200px" }} alt="CodeBloggs" />
                     </LogoLink>
                     <DropdownButton />
                 </Nav>

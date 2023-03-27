@@ -5,6 +5,7 @@
     background: #28bae6;
     box-shadow: 0 20px 75px rgba(0, 0, 0, 0.23);
     color: #fff;
+    border-radius: 10px;
 }
 
 .custom-confirm>h1 {
@@ -17,6 +18,7 @@
     width: 400px;
     height: 300px;
     resize: none;
+    border-radius: 5px;
 }
 
 .custom-confirm>input {
@@ -35,4 +37,5 @@
     background: none;
     color: #fff;
     font-size: 14px;
+    border-radius: 5px;
 }

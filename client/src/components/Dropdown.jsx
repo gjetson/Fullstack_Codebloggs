@@ -19,6 +19,7 @@ const Logo = styled.div`
 const Dropdown = styled.div`
   display: none;
   position: absolute;
+  border-radius: 5px;
   top: 100%;
   right: 0;
   background-color: #333333;
@@ -31,6 +32,7 @@ const Dropdown = styled.div`
 const NavItem = styled.div`
   margin-right: 10px;
   position: absolute;
+  
   right: 0%;
   margin-right: 30px;
 
