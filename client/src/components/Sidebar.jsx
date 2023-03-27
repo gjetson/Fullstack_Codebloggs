@@ -11,9 +11,8 @@ import DropdownButton from "./Dropdown"
 import Post from './Post'
 import { confirmAlert } from "react-confirm-alert"
 import "react-confirm-alert/src/react-confirm-alert.css"
-
 import { useRecoilState } from 'recoil'
-import { userAtom } from '../state/user'
+import { sessionAtom } from '../state/session'
 
 const Nav = styled.div`
 background: #8d88ea;
@@ -66,7 +65,7 @@ width: 100%;
 
 const Sidebar = () => {
     const [sidebar, setSidebar] = useState(true)
-    const [user, setUser] = useRecoilState(userAtom)
+    const [session,] = useRecoilState(sessionAtom)
 
     const showSidebar = () => {
         // setSidebar(!sidebar) 
@@ -88,7 +87,7 @@ const Sidebar = () => {
     const sendPost = async (post) => {
         const body = {
             content: post,
-            user: user._id
+            user: session._id
         }
         console.log('body: ', body)
         try {

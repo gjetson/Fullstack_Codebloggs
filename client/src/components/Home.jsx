@@ -1,23 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useRecoilState } from 'recoil'
-
-import { useUserActions } from '../util/user_actions'
-import { userAtom } from '../state/user'
+import { sessionAtom } from '../state/session'
 
 export default function Home() {
-    const userActions = useUserActions()
-    const [user,] = useRecoilState(userAtom)
+    const [session,] = useRecoilState(sessionAtom)
 
-    useEffect(() => {
-        userActions.authSession()
-        userActions.initUser()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    console.log('user: ', user)
     let name = ''
-    if (user) {
-        name = ` ${user.first_name}`
+    if (session) {
+        name = ` ${session.first_name}`
     }
     return (
         <h1>........................................................................................Welcome{name}!</h1>

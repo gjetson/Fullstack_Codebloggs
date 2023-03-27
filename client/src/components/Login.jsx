@@ -7,8 +7,7 @@ import { useUserActions } from '../util/user_actions'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import useCookie from 'react-use-cookie'
-import { userAtom } from '../state/user'
-
+import { sessionAtom } from '../state/session'
 
 const appStyle = {
   height: '250px',
@@ -53,14 +52,14 @@ const submitStyle = {
   display: 'block'
 }
 
-function LoginSubmit() {
+function Login() {
   const [, setUserToken] = useCookie('token', '0')
-  const [, setUser] = useRecoilState(userAtom)
+  const [, setSession] = useRecoilState(sessionAtom)
   const navigate = useNavigate()
   const userActions = useUserActions()
 
   useEffect(() => {
-    userActions.authAltSession()
+    userActions.authSession()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -83,7 +82,10 @@ function LoginSubmit() {
       if (res && res.status === 201) {
         console.log('token: ', res.data.session.token)
         setUserToken(res.data.session.token, { days: 1 })
-        setUser(res.data.user)
+        let sesh = res.data.user
+        sesh.token = res.data.session.token
+        console.log('sesh: ', sesh)
+        setSession(sesh)
         return navigate('/')
       }
     } catch (err) {
@@ -121,4 +123,4 @@ function LoginSubmit() {
     </div>
   )
 }
-export default LoginSubmit
+export default Login
