@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import { useNavigate } from "react-router-dom"
 import { useUserActions } from "../util/user_actions"
 
 const Nav = styled.div`
@@ -11,11 +10,6 @@ const Nav = styled.div`
   background: #8d88ea;
   color: #fff;
   padding: 0 20px;
-`
-
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
 `
 
 const Dropdown = styled.div`
@@ -73,7 +67,6 @@ const Arrow = styled.span`
 `
 
 const DropdownButton = () => {
-  const navigate = useNavigate()
   const userActions = useUserActions()
   return (
     <Nav>
