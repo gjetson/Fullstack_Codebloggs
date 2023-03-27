@@ -53,6 +53,17 @@ const getUsers = async (req, res) => {
     }
 }
 
+const getUsersByLimit = async (req, res) => {
+    try {
+        const usrs = await User.find({}).sort({ last_name: 1 }).limit(req.params.limit)
+        console.log(usrs)
+        res.status(200).json(usrs)
+    } catch (err) {
+        console.error(err)
+        res.status(500).send({ error: err })
+    }
+}
+
 const getUser = async (req, res) => {
     try {
         const usr = await User.findById(req.params.id)
@@ -113,4 +124,4 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = { createUser, loginUser, getUsers, getUser, updateUser, deleteUser }
+module.exports = { createUser, loginUser, getUsers, getUsersByLimit, getUser, updateUser, deleteUser }
