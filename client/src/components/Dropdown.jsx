@@ -1,5 +1,7 @@
 import React from "react"
 import styled from "styled-components"
+import { useNavigate } from "react-router-dom"
+import { useUserActions } from "../util/user_actions"
 
 const Nav = styled.div`
   display: flex;
@@ -19,23 +21,47 @@ const Logo = styled.div`
 const Dropdown = styled.div`
   display: none;
   position: absolute;
-  border-radius: 5px;
+  border-radius: 10px;
   top: 100%;
   right: 0;
   background-color: #333333;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  padding: 10px;
+  padding: 20px;
+
+  /* Remove default list styles */
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  a {
+    display: block;
+    padding: 8px 10px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+
+  }
 `
 
 const NavItem = styled.div`
-  margin-right: 10px;
-  position: absolute;
-  
-  right: 0%;
   margin-right: 30px;
+  position: absolute;
+  right: 0%;
 
+  a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover,
+    &:focus {
+      color: #3572b0;
+    }
+  }
+
+  /* Show dropdown when hovering over nav item */
   &:hover ${Dropdown} {
     display: block;
   }
@@ -47,16 +73,17 @@ const Arrow = styled.span`
 `
 
 const DropdownButton = () => {
+  const navigate = useNavigate()
+  const userActions = useUserActions()
   return (
     <Nav>
       <NavItem>
-        <span>
+        <a href="#">
           Account <Arrow>&#x25BC;</Arrow>
-        </span>
+        </a>
         <Dropdown>
-          <p>Item 1</p>
-          <p>Item 2</p>
-          <p>Item 3</p>
+          <a href="#">Account Settings</a>
+          <a onClick={userActions.logout} style={{ cursor: "pointer" }}>Logout</a>
         </Dropdown>
       </NavItem>
     </Nav>
