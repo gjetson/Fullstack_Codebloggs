@@ -1,6 +1,11 @@
 import React from 'react'
+import styled from "styled-components"
 import { useRecoilState } from 'recoil'
 import { sessionAtom } from '../state/session'
+
+const Wrap = styled.div`
+margin-left: 250px
+`
 
 export default function Home() {
     const [session,] = useRecoilState(sessionAtom)
@@ -10,6 +15,8 @@ export default function Home() {
         name = ` ${session.first_name}`
     }
     return (
-        <h1>........................................................................................Welcome{name}!</h1>
+        <Wrap>
+            <h1>|....Welcome{name}!</h1>
+        </Wrap>
     )
 }

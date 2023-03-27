@@ -9,10 +9,9 @@ const PrivateOutlet = () => {
     const [session,] = useRecoilState(sessionAtom)
     const token = getCookie('token')
     let outlet = true
-    console.log('token: ', token)
-    console.log('session token: ', session.token)
+    // console.log('token: ', token)
+    // console.log('session token: ', session.token)
     if (!token || token === '0' || !session || session.token !== token) {
-        console.log('logout...')
         outlet = false
     }
     console.log('private outlet: ', outlet)
