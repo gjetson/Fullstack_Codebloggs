@@ -8,6 +8,8 @@ import Network from "./components/Network"
 import WithoutNav from "./components/WithoutNav"
 import WithNav from "./components/WithNav"
 import PrivateOutlet from "./components/PrivateOutlet"
+import PrivateAdminOutlet from "./components/PrivateAdminOutlet"
+import Admin from "./components/Admin"
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
         <Route element={<WithNav />}>
           <Route path='/' element={<PrivateOutlet />} >
             <Route path='' element={<Home />} />
+          </Route>
+          <Route path='/admin' element={<PrivateAdminOutlet />} >
+            <Route path='' element={<Admin />} />
           </Route>
           <Route path='/bloggs' element={<PrivateOutlet />} >
             <Route path='' element={<Bloggs />} />

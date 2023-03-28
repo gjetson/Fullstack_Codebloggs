@@ -7,7 +7,7 @@ import { useUserActions } from '../util/user_actions'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import useCookie from 'react-use-cookie'
-import { sessionAtom } from '../state/session'
+import { userAtom } from '../state/user'
 
 const appStyle = {
   height: '250px',
@@ -54,7 +54,7 @@ const submitStyle = {
 
 function Login() {
   const [, setUserToken] = useCookie('token', '0')
-  const [, setSession] = useRecoilState(sessionAtom)
+  const [, setUser] = useRecoilState(userAtom)
   const navigate = useNavigate()
   const userActions = useUserActions()
 
@@ -82,10 +82,7 @@ function Login() {
       if (res && res.status === 201) {
         console.log('token: ', res.data.session.token)
         setUserToken(res.data.session.token, { days: 1 })
-        let sesh = res.data.user
-        sesh.token = res.data.session.token
-        console.log('sesh: ', sesh)
-        setSession(sesh)
+        setUser(res.data.user)
         return navigate('/')
       }
     } catch (err) {
@@ -103,6 +100,7 @@ function Login() {
   })
 
   return (
+
     <div style={appStyle}>
       <form style={formStyle} onSubmit={handleSubmit} >
         <h1 style={{ marginTop: '5px' }}>Login</h1>
@@ -121,6 +119,7 @@ function Login() {
         theme="colored"
       />
     </div>
+
   )
 }
 export default Login

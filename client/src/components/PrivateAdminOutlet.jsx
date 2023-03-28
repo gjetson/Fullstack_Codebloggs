@@ -5,19 +5,19 @@ import { userAtom } from '../state/user'
 import { getCookie } from 'react-use-cookie'
 
 
-const PrivateOutlet = () => {
+const PrivateAdminOutlet = () => {
     const [user,] = useRecoilState(userAtom)
     const token = getCookie('token')
     let outlet = true
     // console.log('token: ', token)
     // console.log('session token: ', session.token)
-    if (!token || token === '0' || !user) {
+    if (!token || token === '0' || !user || user.auth_level !== 'ADMIN') {
         outlet = false
     }
-    console.log('private outlet: ', outlet)
+    console.log('private admin outlet: ', outlet)
     return (
         outlet ? <Outlet /> : <Navigate to="/login" />
     )
 }
 
-export default PrivateOutlet
+export default PrivateAdminOutlet
