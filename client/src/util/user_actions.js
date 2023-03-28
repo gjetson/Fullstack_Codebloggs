@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom"
 import { setCookie, getCookie } from 'react-use-cookie'
 import axios from 'axios'
 import { useRecoilState } from 'recoil'
-import { sessionAtom } from '../state/session'
+import { userAtom } from '../state/user'
 
 export { useUserActions }
 
 function useUserActions() {
-    const [, setSession] = useRecoilState(sessionAtom)
+    const [, setUser] = useRecoilState(userAtom)
     const navigate = useNavigate()
 
     const authSession = async () => {
@@ -21,10 +21,7 @@ function useUserActions() {
                 console.log(res)
                 if (res.status === 200) {
                     console.log('data: ', res.data)
-                    let sesh = res.data.user
-                    sesh.token = res.data.token
-                    console.log('sesh: ', sesh)
-                    setSession(sesh)
+                    setUser(res.data.user)
                     navigate('/')
                 }
             }
@@ -37,7 +34,7 @@ function useUserActions() {
     const logout = () => {
         // set token to zero
         setCookie('token', '0')
-        setSession(0)
+        setUser(0)
     }
 
     return { authSession, logout }

@@ -12,7 +12,7 @@ import Post from './Post'
 import { confirmAlert } from "react-confirm-alert"
 import "react-confirm-alert/src/react-confirm-alert.css"
 import { useRecoilState } from 'recoil'
-import { sessionAtom } from '../state/session'
+import { userAtom } from '../state/user'
 
 const Nav = styled.div`
 background: #8d88ea;
@@ -65,7 +65,7 @@ width: 100%;
 
 const Sidebar = () => {
     const [sidebar, setSidebar] = useState(true)
-    const [session,] = useRecoilState(sessionAtom)
+    const [user,] = useRecoilState(userAtom)
 
     const showSidebar = () => {
         // setSidebar(!sidebar) 
@@ -87,7 +87,7 @@ const Sidebar = () => {
     const sendPost = async (post) => {
         const body = {
             content: post,
-            user: session._id
+            user: user._id
         }
         console.log('body: ', body)
         try {
@@ -122,6 +122,9 @@ const Sidebar = () => {
                             <img src="Untitled.png" alt="CodeBloggs" className="top-left-image" style={{ position: "fixed", width: "50px", height: "50px", left: "20px" }} />
                         </NavIcon>
                         {SidebarData.map((item, index) => {
+                            if (item.title === 'Admin' && user.auth_level !== 'ADMIN') {
+                                return null
+                            }
                             return <SubMenu item={item} key={index} />
                         })}
                     </SidebarWrap>
