@@ -88,6 +88,16 @@ function Login() {
       }
     } catch (err) {
       console.error(err)
+      toast.error('Email or password is invalid!', {
+        position: "top-center",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
   }
 
