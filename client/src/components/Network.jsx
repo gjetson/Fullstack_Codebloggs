@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { confirmAlert } from "react-confirm-alert"
+import UserModal from './UserModal';
 
 const users = [
     {
@@ -50,6 +52,19 @@ export default function Network() {
         }
     };
 
+    const postHandler = () => {
+        console.log('click')
+        confirmAlert({
+            customUI: ({ onClose }) => {
+
+                return (
+                    // <Confirm msg={'update'} onClose={onClose} onConfirm={() => { editAgent(); onClose() }} />
+                    <UserModal onClose={onClose} />
+                )
+            }
+        })
+    }
+
 
     return (
         <div style={{ display: 'flex' }}>
@@ -72,7 +87,7 @@ export default function Network() {
                                 boxShadow: user.id === activeUserId ? '0 0 5px 2px blue' : 'none',
                                 background: user.id === activeUserId ? '#f5f5f5' : 'white',
                             }}
-                            onClick={() => handleCardClick(user.id)}
+                            onClick={() => {handleCardClick(user.id); postHandler();}}
                             onMouseEnter={() => handleCardHover(user.id)}
                             onMouseLeave={() => handleCardHover(null)}
                         >
