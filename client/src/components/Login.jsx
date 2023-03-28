@@ -49,7 +49,8 @@ const submitStyle = {
   width: '100%',
   fontSize: '15px',
   color: 'white',
-  display: 'block'
+  display: 'block',
+  cursor: 'pointer'
 }
 
 function Login() {

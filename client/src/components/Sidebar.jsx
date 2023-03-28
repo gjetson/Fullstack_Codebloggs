@@ -118,7 +118,7 @@ const Sidebar = () => {
 
                 <SidebarNav sidebar={sidebar}>
                     <SidebarWrap>
-                        <NavIcon to="#">
+                        <NavIcon to="/">
                             <img src="Untitled.png" alt="CodeBloggs" className="top-left-image" style={{ position: "fixed", width: "50px", height: "50px", left: "20px" }} />
                         </NavIcon>
                         {SidebarData.map((item, index) => {
