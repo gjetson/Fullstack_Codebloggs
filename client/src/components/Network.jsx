@@ -1,70 +1,63 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { confirmAlert } from "react-confirm-alert"
-import UserModal from './UserModal';
+import UserModal from './UserModal'
+import axios from 'axios'
 
-const users = [
-    {
-        id: 1,
-        name: '1',
-        description: '',
-    },
-    {
-        id: 2,
-        name: '2',
-        description: '',
-    },
-    {
-        id: 3,
-        name: '3',
-        description: '',
-    },
-    {
-        id: 4,
-        name: '4',
-        description: '',
-    },
-    {
-        id: 5,
-        name: '5',
-        description: '',
-    },
-    {
-        id: 6,
-        name: '6',
-        description: '',
-    },
-]
+const user = {
+    id: 1,
+    name: '1',
+    description: '',
+}
 
 export default function Network() {
-    const [activeUserId, setActiveUserId] = useState(null);
+    const [activeUserId, setActiveUserId] = useState(null)
+    const [users, setUsers] = useState([])
 
-    const handleCardClick = (userId) => {
-        setActiveUserId(userId);
-    };
-
-    const handleCardHover = (userId) => {
-        const card = document.getElementById(`user-${userId}`);
-        if (card) {
-            card.style.boxShadow = '0 0 5px 2px gray';
-            card.onmouseleave = () => {
-                card.style.boxShadow = 'none';
+    useEffect(() => {
+        async function getUsers() {
+            try {
+                const res = await axios.get(`http://localhost:3004/users`)
+                console.log(res)
+                if (res && res.status === 200) {
+                    const newUsers = res.data.map((user, index) => {
+                        return {
+                            id: index,
+                            name: `${user.first_name} ${user.last_name}`,
+                            user: user
+                        }
+                    })
+                    setUsers(newUsers)
+                }
+            } catch (err) {
+                console.error(err)
             }
         }
-    };
+        getUsers()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [users.length])
 
-    const postHandler = () => {
-        console.log('click')
+    const handleCardClick = (userId) => {
+        setActiveUserId(userId)
+        console.log('user: ', users[userId])
         confirmAlert({
             customUI: ({ onClose }) => {
-
                 return (
                     // <Confirm msg={'update'} onClose={onClose} onConfirm={() => { editAgent(); onClose() }} />
-                    <UserModal onClose={onClose} />
+                    <UserModal onClose={onClose} user={users[userId]} />
                 )
             }
         })
     }
 
+    const handleCardHover = (userId) => {
+        const card = document.getElementById(`user-${userId}`)
+        if (card) {
+            card.style.boxShadow = '0 0 5px 2px gray'
+            card.onmouseleave = () => {
+                card.style.boxShadow = 'none'
+            }
+        }
+    }
 
     return (
         <div style={{ display: 'flex' }}>
@@ -87,7 +80,7 @@ export default function Network() {
                                 boxShadow: user.id === activeUserId ? '0 0 5px 2px blue' : 'none',
                                 background: user.id === activeUserId ? '#f5f5f5' : 'white',
                             }}
-                            onClick={() => {handleCardClick(user.id); postHandler();}}
+                            onClick={() => { handleCardClick(user.id) }}
                             onMouseEnter={() => handleCardHover(user.id)}
                             onMouseLeave={() => handleCardHover(null)}
                         >
