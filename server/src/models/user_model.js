@@ -52,7 +52,8 @@ const UserSchema = mongoose.Schema({
     },
     auth_level: {
         type: String,
-        trim: true
+        enum: ['BASIC', 'ADMIN'],
+        default: 'BASIC'
     },
     posts: [{
         type: mongoose.Schema.Types.ObjectId,

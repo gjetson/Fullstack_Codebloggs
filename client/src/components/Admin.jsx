@@ -5,11 +5,11 @@ const Wrap = styled.div`
 margin-left: 250px
 `
 
-export default function Blogg() {
+export default function Admin() {
 
     return (
         <Wrap>
-            <h1>|....Bloggs</h1>
+            <h1>|....Admin</h1>
         </Wrap>
     )
 }

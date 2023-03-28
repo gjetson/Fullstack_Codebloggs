@@ -1,18 +1,18 @@
 import React from 'react'
 import styled from "styled-components"
 import { useRecoilState } from 'recoil'
-import { sessionAtom } from '../state/session'
+import { userAtom } from '../state/user'
 
 const Wrap = styled.div`
 margin-left: 250px
 `
 
 export default function Home() {
-    const [session,] = useRecoilState(sessionAtom)
+    const [user,] = useRecoilState(userAtom)
 
     let name = ''
-    if (session) {
-        name = ` ${session.first_name}`
+    if (user) {
+        name = ` ${user.first_name}`
     }
     return (
         <Wrap>

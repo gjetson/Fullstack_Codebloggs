@@ -59,36 +59,36 @@ export const SidebarData = [
         icon: <FaIcons.FaUserFriends />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />
+    },
+    //     {
+    //         title: "Contact",
+    //         path: "/contact",
+    //         icon: <FaIcons.FaPhone />,
+    //     },
+    //     {
+    //         title: "Events",
+    //         path: "/events",
+    //         icon: <FaIcons.FaEnvelopeOpenText />,
+
+    //         iconClosed: <RiIcons.RiArrowDownSFill />,
+    //         iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    //         subNav: [
+    //             {
+    //                 title: "Event 1",
+    //                 path: "/events/events1",
+    //                 icon: <IoIcons.IoIosPaper />,
+    //             },
+    //             {
+    //                 title: "Event 2",
+    //                 path: "/events/events2",
+    //                 icon: <IoIcons.IoIosPaper />,
+    //             },
+    //         ],
+    //     },
+    {
+        title: "Admin",
+        path: "/admin",
+        icon: <IoIcons.IoIosAmericanFootball />,
     }
-//     {
-//         title: "Contact",
-//         path: "/contact",
-//         icon: <FaIcons.FaPhone />,
-//     },
-//     {
-//         title: "Events",
-//         path: "/events",
-//         icon: <FaIcons.FaEnvelopeOpenText />,
-
-//         iconClosed: <RiIcons.RiArrowDownSFill />,
-//         iconOpened: <RiIcons.RiArrowUpSFill />,
-
-//         subNav: [
-//             {
-//                 title: "Event 1",
-//                 path: "/events/events1",
-//                 icon: <IoIcons.IoIosPaper />,
-//             },
-//             {
-//                 title: "Event 2",
-//                 path: "/events/events2",
-//                 icon: <IoIcons.IoIosPaper />,
-//             },
-//         ],
-//     },
-//     {
-//         title: "Support",
-//         path: "/support",
-//         icon: <IoIcons.IoMdHelpCircle />,
-//     },
 ]
