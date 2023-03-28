@@ -27,11 +27,27 @@ const addLike = async (req, res) => {
 
 const getPost = async (req, res) => {
     try {
-        const usr = await Post.findById(req.params.id)
-        res.status(200).json(usr)
+        const pst = await Post.findById(req.params.id)
+        res.status(200).json(pst)
     } catch (err) {
         if (err.kind === 'ObjectId' && err.name === 'CastError') {
             const msg = `'${req.params.id}' is not an ID. It must be a string of 12 bytes or 24 hex characters or an integer.`
+            res.status(500).json({ error: msg })
+        } else {
+            console.error(err)
+            res.status(500).send({ error: err })
+        }
+    }
+}
+
+const getLatestPostByUserId = async (req, res) => {
+    try {
+        console.log(req.params.userId)
+        const pst = await Post.find({ user: req.params.userId }).limit(1).sort({ $natural: -1 })
+        res.status(200).json(pst)
+    } catch (err) {
+        if (err.kind === 'ObjectId' && err.name === 'CastError') {
+            const msg = `'${req.params.userId}' is not an ID. It must be a string of 12 bytes or 24 hex characters or an integer.`
             res.status(500).json({ error: msg })
         } else {
             console.error(err)
@@ -90,4 +106,4 @@ const deletePost = async (req, res) => {
     }
 }
 
-module.exports = { createPost, addLike, getPosts, getPost, updatePost, deletePost }
+module.exports = { createPost, addLike, getPosts, getPost, updatePost, deletePost, getLatestPostByUserId }
