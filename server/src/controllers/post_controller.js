@@ -2,8 +2,8 @@ const Post = require('../models/post_model')
 
 const createPost = async (req, res) => {
     try {
-        const usr = await Post.create(req.body)
-        res.status(201).json(usr)
+        const pst = await Post.create(req.body)
+        res.status(201).json(pst)
     } catch (err) {
         console.error(err)
         res.status(500).json(err)
@@ -12,9 +12,9 @@ const createPost = async (req, res) => {
 
 const getPosts = async (req, res) => {
     try {
-        const usrs = await Post.find({}).sort({ last_name: 1 })
-        console.log(usrs)
-        res.status(200).json(usrs)
+        const pst = await Post.find({}).sort({ $natural: -1 })
+        console.log(pst)
+        res.status(200).json(pst)
     } catch (err) {
         console.error(err)
         res.status(500).send({ error: err })
@@ -63,12 +63,12 @@ const updatePost = async (req, res) => {
 const _updatePost = async (id, body, res) => {
     try {
         console.log(body)
-        const usr = await Post.findByIdAndUpdate(
+        const pst = await Post.findByIdAndUpdate(
             { _id: id },
             body,
             { new: true, upsert: false })
-        if (usr) {
-            res.status(201).json(usr)
+        if (pst) {
+            res.status(201).json(pst)
         }
         else {
             res.status(404).json({ err: `Post not found for id: ${id}` })
@@ -88,10 +88,10 @@ const _updatePost = async (id, body, res) => {
 const deletePost = async (req, res) => {
     try {
         // console.log(req.params.id)
-        const usr = await Post.findByIdAndDelete(req.params.id)
+        const pst = await Post.findByIdAndDelete(req.params.id)
         // console.log("agent: ", agent)
-        if (usr) {
-            res.status(200).json(usr)
+        if (pst) {
+            res.status(200).json(pst)
         }
         else {
             res.status(404).json({ err: `User not found for id: ${req.params.id}` })
