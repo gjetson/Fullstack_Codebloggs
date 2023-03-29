@@ -23,7 +23,7 @@ function UserModal(props) {
             <h1 className="network-modal-header">
                 User Card
                 <button className="close-button" onClick={handleClose}>
-                    Piss Off!
+                    &times;
                 </button>
             </h1>
             <div className="user-profile">

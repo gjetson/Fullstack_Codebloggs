@@ -66,7 +66,7 @@ const Register = () => {
     const emailRef = React.useRef()
     const birthDateRef = React.useRef()
     const passwordRef = React.useRef()
-    const confirmRef = React.useRef()
+    const statusRef = React.useRef()
     const locationRef = React.useRef()
 
     const handleSubmit = async (e) => {
@@ -77,7 +77,7 @@ const Register = () => {
             email: emailRef.current.value,
             birthday: birthDateRef.current.value,
             password: passwordRef.current.value,
-            confirmPassword: confirmRef.current.value,
+            status: statusRef.current.value,
             location: locationRef.current.value
         }
         register(data)
@@ -89,7 +89,7 @@ const Register = () => {
         emailRef.current.value = ''
         birthDateRef.current.value = ''
         passwordRef.current.value = ''
-        confirmRef.current.value = ''
+        statusRef.current.value = ''
         locationRef.current.value = ''
     }
 
@@ -128,7 +128,7 @@ const Register = () => {
                 <Field ref={emailRef} label="Email:" type="email" />
                 <Field ref={passwordRef} label="Password:" type="password" />
                 <Field ref={birthDateRef} label="Birthdate:" type="date" />
-                <Field ref={confirmRef} label="Confirm Password:" type="password" />
+                <Field ref={statusRef} label="Status:" type="text" />
                 <div>
                     <button style={submitStyle} type="submit">
                         Register
