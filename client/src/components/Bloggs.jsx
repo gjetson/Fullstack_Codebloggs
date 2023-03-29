@@ -1,64 +1,62 @@
 import React, { useEffect, useState } from "react"
+import { confirmAlert } from "react-confirm-alert"
 import "react-confirm-alert/src/react-confirm-alert.css"
 import axios from "axios"
+import "../css/bloggs.css"
+import BloggModal from "./BloggsModal"
+import Blogg from "./Blogg"
 
-const Blogg = (props) => (
-    <tr>
-        <td>{props.blogg.content}</td>
-        <td>{props.blogg.likes}</td>
-        <td>{props.blogg.user._id}</td>
-    </tr>
-)
+
+
 
 export default function Bloggs() {
-    const [bloggs, setBloggs] = useState([])
+  const [bloggs, setBloggs] = useState([])
+  const [selectedBlogg, setSelectedBlogg] = useState(null)
 
-    useEffect(() => {
-        async function getBloggs() {
-            try {
-                const res = await axios.get(`http://localhost:3004/posts`)
-                console.log('bloggs: ', res)
-                if (res && res.status === 200) {
-                    setBloggs(res.data)
-                }
-            } catch (err) {
-                console.error(err)
-            }
+  useEffect(() => {
+    async function getBloggs() {
+      try {
+        const res = await axios.get(`http://localhost:3004/posts`)
+        console.log('bloggs: ', res)
+        if (res && res.status === 200) {
+          setBloggs(res.data)
         }
-        getBloggs()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [bloggs.length])
-
-
-    function bloggList() {
-        return bloggs.map((blogg) => {
-            console.log('user: ', blogg.user)
-            if (blogg.user) {
-                return (
-                    <Blogg
-                        blogg={blogg}
-                        key={blogg._id}
-                    />
-                )
-            }
-        })
+      } catch (err) {
+        console.error(err)
+      }
     }
+    getBloggs()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-    return (
-        <div style={{ marginLeft: '250px' }}>
-            <h1>Bloggzilla</h1>
-            <div>
-                <table className="table table-striped" style={{ marginTop: 20 }}>
-                    <thead>
-                        <tr>
-                            <th>Content</th>
-                            <th>Likes</th>
-                            <th>User ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>{bloggList()}</tbody>
-                </table>
-            </div>
-        </div>
-    )
+  const handleModalClose = () => {
+    setSelectedBlogg(null)
+  }
+
+  const handleCardClick = (blogg) => {
+    setSelectedBlogg(blogg)
+  }
+
+  function bloggList() {
+    return bloggs.map((blogg) => {
+      console.log('user: ', blogg.user)
+      if (blogg.user) {
+        return (
+          <Blogg
+            blogg={blogg}
+            key={blogg._id}
+          />
+        )
+      }
+    })
+  }
+
+  return (
+    <div style={{ marginLeft: '250px' }}>
+      <div className="blog-container">
+        <h1>Blogg</h1>
+        <div className="card-container">{bloggList()}</div>
+      </div>
+    </div>
+  )
 }

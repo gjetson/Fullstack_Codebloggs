@@ -1,13 +1,40 @@
-.profile-picture {
+.blog-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    width: 125px;
-    height: 125px;
-    border-radius: 50%;
-    background-color: #3f51b5;
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    margin-right: 20px;
-}
+
+  }
+  
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 1000px;
+    margin:auto;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .content {
+    font-size: 20px;
+    margin: 0;
+  }
+  
+  .likes {
+    margin: 5px 0;
+  }
+  
+  .userId {
+    margin: 5px 0;
+  }
+  

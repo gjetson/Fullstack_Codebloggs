@@ -4,7 +4,7 @@ import React from 'react'
 import { useState } from 'react'
 
 
-function UserModal(props) {
+function BloggModal(props) {
     const [isOpen, setIsOpen] = useState(true)
 
     const handleClose = () => {
@@ -29,24 +29,13 @@ function UserModal(props) {
             <div className="user-profile">
                 <div className="profile-picture">JS</div>
                 <div className="user-info">
-                    <h2>{props.user.first_name} {props.user.last_name}</h2>
-                    <p>{props.user.location}</p>
+                    <h2>{props.blogg.user.first_name} {props.blogg.user.last_name}</h2>
+                    <p>{props.blogg.user.location}</p>
                 </div>
             </div>
-            <hr className="divider" />
-            <div className="user-status">
-                <h3>Status</h3>
-                <p>{props.user.status}</p>
-            </div>
-            <hr className="divider" />
-            <div className="latest-user-post">
-                <h3>Latest Post</h3>
-                <p>{props.post.content}</p>
-            </div>
-
         </div>
     )
 }
 
 
-export default UserModal
+export default BloggModal
