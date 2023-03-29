@@ -22,23 +22,3 @@ function Post(props) {
 }
 
 export default Post
-
-// calling code example...
-//
-// function onSubmit(e) {
-//     e.preventDefault()
-//     confirmAlert({
-//         customUI: ({ onClose }) => {
-
-//             return (
-//                 // <Confirm msg={'update'} onClose={onClose} onConfirm={() => { editAgent(); onClose() }} />
-
-//                 <Post onClose={onClose} onConfirm={(msg) => { sendPost(msg); onClose() }} />
-//             )
-//         }
-//     })
-// }
-
-// const sendPost = (msg) => {
-//     console.log(msg)
-// }

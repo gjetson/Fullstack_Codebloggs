@@ -1,7 +1,6 @@
 
 import Login from "./components/Login"
 import Register from "./components/Register"
-import Home from "./components/Home"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Bloggs from "./components/Bloggs"
 import Network from "./components/Network"
@@ -10,6 +9,7 @@ import WithNav from "./components/WithNav"
 import PrivateOutlet from "./components/PrivateOutlet"
 import PrivateAdminOutlet from "./components/PrivateAdminOutlet"
 import Admin from "./components/Admin"
+import UserBloggs from "./components/UserBloggs"
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         </Route>
         <Route element={<WithNav />}>
           <Route path='/' element={<PrivateOutlet />} >
-            <Route path='' element={<Home />} />
+            <Route path='' element={<UserBloggs />} />
           </Route>
           <Route path='/admin' element={<PrivateAdminOutlet />} >
             <Route path='' element={<Admin />} />
