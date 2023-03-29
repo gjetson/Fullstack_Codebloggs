@@ -3,12 +3,6 @@ import { confirmAlert } from "react-confirm-alert"
 import UserModal from './UserModal'
 import axios from 'axios'
 
-const user = {
-    id: 1,
-    name: '1',
-    description: '',
-}
-
 export default function Network() {
     const [activeUserId, setActiveUserId] = useState(null)
     const [users, setUsers] = useState([])
@@ -19,14 +13,7 @@ export default function Network() {
                 const res = await axios.get(`http://localhost:3004/users`)
                 console.log(res)
                 if (res && res.status === 200) {
-                    const newUsers = res.data.map((user, index) => {
-                        return {
-                            id: index,
-                            name: `${user.first_name} ${user.last_name}`,
-                            user: user
-                        }
-                    })
-                    setUsers(newUsers)
+                    setUsers(res.data)
                 }
             } catch (err) {
                 console.error(err)
@@ -36,14 +23,29 @@ export default function Network() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [users.length])
 
-    const handleCardClick = (userId) => {
-        setActiveUserId(userId)
-        console.log('user: ', users[userId])
+    const getLatestPost = async (userId) => {
+        try {
+            const res = await axios.get(`http://localhost:3004/post/latest/${userId}`)
+            console.log(res)
+            if (res && res.status === 200) {
+                return res.data
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const handleCardClick = async (index) => {
+        setActiveUserId(index)
+        const user = users[index]
+        const post = await getLatestPost(user._id)
         confirmAlert({
             customUI: ({ onClose }) => {
+                console.log('post: ', post)
+                console.log('user: ', user)
                 return (
                     // <Confirm msg={'update'} onClose={onClose} onConfirm={() => { editAgent(); onClose() }} />
-                    <UserModal onClose={onClose} user={users[userId]} />
+                    <UserModal onClose={onClose} user={user} post={post[0]} />
                 )
             }
         })
@@ -64,10 +66,10 @@ export default function Network() {
             <div style={{ width: '250px', background: '#ccc' }}>Sidebar</div>
             <div style={{ marginLeft: '250px' }}>
                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                    {users.map((user) => (
+                    {users.map((user, index) => (
                         <div
-                            key={user.id}
-                            id={`user-${user.id}`}
+                            key={index}
+                            id={`user-${index}`}
                             style={{
                                 flexBasis: '25%',
                                 width: '300px',
@@ -77,14 +79,14 @@ export default function Network() {
                                 borderRadius: '10px',
                                 margin: '1%',
                                 cursor: 'pointer',
-                                boxShadow: user.id === activeUserId ? '0 0 5px 2px blue' : 'none',
-                                background: user.id === activeUserId ? '#f5f5f5' : 'white',
+                                boxShadow: index === activeUserId ? '0 0 5px 2px blue' : 'none',
+                                background: index === activeUserId ? '#f5f5f5' : 'white',
                             }}
-                            onClick={() => { handleCardClick(user.id) }}
-                            onMouseEnter={() => handleCardHover(user.id)}
+                            onClick={() => { handleCardClick(index) }}
+                            onMouseEnter={() => handleCardHover(index)}
                             onMouseLeave={() => handleCardHover(null)}
                         >
-                            <h2>{user.name}</h2>
+                            <h2>{user.first_name} {user.last_name}</h2>
                         </div>
                     ))}
                 </div>

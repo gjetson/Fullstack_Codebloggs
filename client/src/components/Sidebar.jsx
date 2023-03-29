@@ -115,7 +115,6 @@ const Sidebar = () => {
                     </LogoLink>
                     <DropdownButton />
                 </Nav>
-
                 <SidebarNav sidebar={sidebar}>
                     <SidebarWrap>
                         <NavIcon to="/">
