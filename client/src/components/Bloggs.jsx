@@ -44,7 +44,7 @@ export default function Bloggs() {
 
     return (
         <div style={{ marginLeft: '250px' }}>
-            <h1>Bloggzilla</h1>
+            <h1>Oh, no, there goes Tokyo! Go, go, Bloggzilla</h1>
             <div>
                 <table className="table table-striped" style={{ marginTop: 20 }}>
                     <thead>
