@@ -22,18 +22,28 @@ function BloggModal(props) {
         <div className="blogg-modal">
             <h3 className="blogg-modal-header">
                 Blogg Post
+                <button className="close-button" onClick={handleClose}>
+                    &times;
+                </button>
             </h3>
             <div className="user-profile">
                 <div className="profile-pic">{props.user.first_name.charAt(0).toUpperCase()}{props.user.last_name.charAt(0).toUpperCase()}</div>
-                <div className="current-user-post">
-                    <p>{props.post.content}</p>
+                <div className="post-info">
+                    <div className="current-user-post">
+                        <p>{props.post.content}</p>
+                    </div>
+                    <div className="post-date">
+                        <p>Date: {props.post.date}</p>
+                    </div>
                 </div>
             </div>
-            <hr className="divider" />
+            <div className="like-section">
+                <p>{props.post.likes} Likes</p>
+                <div className="like-button">
+                </div>
+            </div>
+
             <div className="comment-section">
-                <button className="like-button" onClick={handleClose}>
-                    &times;
-                </button>
                 <h5>Comments</h5>
                 <p>{props.post.content}</p>
             </div>
