@@ -61,6 +61,7 @@
 .like-button {
     margin-left: 5px;
     margin-bottom: 15px;
+    cursor: pointer;
 }
   
 .like-button::before {

@@ -1,8 +1,8 @@
-import '../css/bloggModal.css'
 
 import React from 'react'
 import { useState } from 'react'
-
+import axios from 'axios'
+import '../css/bloggModal.css'
 
 function BloggModal(props) {
     const [isOpen, setIsOpen] = useState(true)
@@ -14,6 +14,18 @@ function BloggModal(props) {
 
     if (!isOpen) {
         return null
+    }
+    
+    const handleClick = async () => {
+        try {
+            const res = await axios.post(`http://localhost:3004/post/like/${props.post._id}`)
+            console.log(res)
+            if (res && res.status === 200) {
+                return res.data
+            }
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     console.log(props.post)
@@ -39,7 +51,7 @@ function BloggModal(props) {
             </div>
             <div className="like-section">
                 <p>{props.post.likes} Likes</p>
-                <div className="like-button">
+                <div className="like-button" onClick={handleClick}>
                 </div>
             </div>
 
