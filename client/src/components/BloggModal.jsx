@@ -4,7 +4,7 @@ import React from 'react'
 import { useState } from 'react'
 
 
-function UserModal(props) {
+function BloggModal(props) {
     const [isOpen, setIsOpen] = useState(true)
 
     const handleClose = () => {
@@ -48,4 +48,4 @@ function UserModal(props) {
 }
 
 
-export default UserModal
+export default BloggModal

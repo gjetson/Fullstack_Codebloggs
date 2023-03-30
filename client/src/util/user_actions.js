@@ -31,12 +31,16 @@ function useUserActions() {
         }
     }
 
+    const getRandomInt = (max) => {
+        return Math.floor(Math.random() * max)
+    }
+
     const logout = () => {
         // set token to zero
         setCookie('token', '0')
         setUser(0)
     }
 
-    return { authSession, logout }
+    return { authSession, logout, getRandomInt }
 
 }

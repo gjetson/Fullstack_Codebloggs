@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react"
 import "react-confirm-alert/src/react-confirm-alert.css"
+import { confirmAlert } from "react-confirm-alert"
+import UserBloggModal from './UserBloggModal'
 import axios from "axios"
 import { useRecoilState } from 'recoil'
 import { userAtom } from '../state/user'
+import { useUserActions } from '../util/user_actions'
 import {
     MDBCardImage,
     MDBCard,
@@ -14,15 +17,9 @@ import {
     MDBBtn
 } from 'mdb-react-ui-kit'
 
-const Blogg = (props) => (
-    <tr>
-        <td>{props.blogg.content}</td>
-        <td>{props.blogg.likes}</td>
-        <td>{props.blogg.user}</td>
-    </tr>
-)
 
 export default function UserBloggs() {
+    const userActions = useUserActions()
     const [user,] = useRecoilState(userAtom)
     const [bloggs, setBloggs] = useState([])
 
@@ -43,71 +40,85 @@ export default function UserBloggs() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bloggs.length])
 
-
-    function bloggList() {
-        return bloggs.map((blogg) => {
-            console.log('user: ', blogg.user)
-            return (
-                <Blogg
-                    blogg={blogg}
-                    key={blogg._id}
-                />
-            )
+    const handleCardClick = async (index) => {
+        const post = bloggs[index]
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                console.log('post: ', post)
+                console.log('user: ', user)
+                return (
+                    // <Confirm msg={'update'} onClose={onClose} onConfirm={() => { editAgent(); onClose() }} />
+                    <UserBloggModal onClose={onClose} user={user} post={post} />
+                )
+            }
         })
-    }
-
-    const getRandomInt = (max) => {
-        return Math.floor(Math.random() * max)
     }
 
     return (
         <div style={{ marginLeft: '250px' }}>
-            <h1>Bloggzilla Phone Home</h1>
-            <div>
-                <table className="table table-striped" style={{ marginTop: 20 }}>
-                    <thead>
-                        <tr>
-                            <th>Content</th>
-                            <th>Likes</th>
-                            <th>User ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>{bloggList()}</tbody>
-                </table>
-            </div>
-
             {bloggs.map((blogg, index) => {
-
-                return (
-                    <MDBRow>
-                        <MDBCol sm='5'>
-                            <MDBCard>
-                                <MDBCardBody>
-                                    <MDBCardImage src={`https://picsum.photos/seed/${getRandomInt(100)}/300/100`} alt='...' position='top' />
-                                    <MDBCardTitle>Special title treatment</MDBCardTitle>
-                                    <MDBCardText>
-                                        With supporting text below as a natural lead-in to additional content.
-                                    </MDBCardText>
-                                    <MDBBtn href='#'>Go somewhere</MDBBtn>
-                                </MDBCardBody>
-                            </MDBCard>
-                        </MDBCol>
-                        <MDBCol sm='1'></MDBCol>
-                        <MDBCol sm='5'>
-                            <MDBCard>
-                                <MDBCardBody>
-                                    <MDBCardImage src={`https://picsum.photos/seed/${getRandomInt(100)}/300/100`} alt='...' position='top' />
-                                    <MDBCardTitle>Special title treatment</MDBCardTitle>
-                                    <MDBCardText>
-                                        With supporting text below as a natural lead-in to additional content.
-                                    </MDBCardText>
-                                    <MDBBtn href='#'>Go somewhere</MDBBtn>
-                                </MDBCardBody>
-                            </MDBCard>
-                        </MDBCol>
-                        <MDBCol sm='1'></MDBCol>
-                    </MDBRow>
-                )
+                if (index === 0) {
+                    return (
+                        <MDBRow key={index}>
+                            <MDBCol sm='5'>
+                                <MDBCard>
+                                    <MDBCardBody>
+                                        <MDBCardImage src={`https://picsum.photos/seed/${userActions.getRandomInt(100)}/300/100`} alt='...' position='top' />
+                                        <MDBCardTitle>{user.first_name} {user.last_name}</MDBCardTitle>
+                                        <MDBCardText>
+                                            {user.status}
+                                        </MDBCardText>
+                                    </MDBCardBody>
+                                </MDBCard>
+                            </MDBCol>
+                            <MDBCol sm='1'></MDBCol>
+                            <MDBCol sm='5'>
+                                <MDBCard>
+                                    <MDBCardBody>
+                                        <MDBCardImage src={`https://picsum.photos/seed/${userActions.getRandomInt(100)}/300/100`} alt='...' position='top' />
+                                        <MDBCardTitle>{blogg.content}</MDBCardTitle>
+                                        {/* <MDBCardText>
+                                            With supporting text below as a natural lead-in to additional content.
+                                        </MDBCardText> */}
+                                        <MDBBtn onClick={() => { handleCardClick(index) }}>Go somewhere</MDBBtn>
+                                    </MDBCardBody>
+                                </MDBCard>
+                            </MDBCol>
+                            <MDBCol sm='1'></MDBCol>
+                        </MDBRow>
+                    )
+                } else {
+                    return (
+                        <MDBRow key={index}>
+                            <MDBCol sm='5'>
+                                <MDBCard>
+                                    {/* <MDBCardBody>
+                                        <MDBCardImage src={`https://picsum.photos/seed/${getRandomInt(100)}/300/100`} alt='...' position='top' />
+                                        <MDBCardTitle>Special title treatment</MDBCardTitle>
+                                        <MDBCardText>
+                                            With supporting text below as a natural lead-in to additional content.
+                                        </MDBCardText>
+                                        <MDBBtn href='#'>Go somewhere</MDBBtn>
+                                    </MDBCardBody> */}
+                                </MDBCard>
+                            </MDBCol>
+                            <MDBCol sm='1'></MDBCol>
+                            <MDBCol sm='5'>
+                                <MDBCard>
+                                    <MDBCardBody>
+                                        <MDBCardImage src={`https://picsum.photos/seed/${userActions.getRandomInt(100)}/300/100`} alt='...' position='top' />
+                                        <MDBCardTitle>{blogg.content}</MDBCardTitle>
+                                        {/* <MDBCardText>
+                                            With supporting text below as a natural lead-in to additional content.
+                                        </MDBCardText> */}
+                                        <MDBBtn onClick={() => { handleCardClick(index) }}>Go somewhere</MDBBtn>
+                                    </MDBCardBody>
+                                </MDBCard>
+                            </MDBCol>
+                            <MDBCol sm='1'></MDBCol>
+                        </MDBRow>
+                    )
+                }
             })}
         </div>
     )

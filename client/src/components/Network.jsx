@@ -3,9 +3,20 @@ import "react-confirm-alert/src/react-confirm-alert.css"
 import { confirmAlert } from "react-confirm-alert"
 import UserModal from './UserModal'
 import axios from 'axios'
+import { useUserActions } from '../util/user_actions'
+import {
+    MDBCardImage,
+    MDBCard,
+    MDBCardBody,
+    MDBCardTitle,
+    MDBCardText,
+    MDBRow,
+    MDBCol,
+    MDBBtn
+} from 'mdb-react-ui-kit'
 
 export default function Network() {
-    const [activeUserId, setActiveUserId] = useState(null)
+    const userActions = useUserActions()
     const [users, setUsers] = useState([])
 
     useEffect(() => {
@@ -37,7 +48,6 @@ export default function Network() {
     }
 
     const handleCardClick = async (index) => {
-        setActiveUserId(index)
         const user = users[index]
         const post = await getLatestPost(user._id)
         confirmAlert({
@@ -52,46 +62,38 @@ export default function Network() {
         })
     }
 
-    const handleCardHover = (userId) => {
-        const card = document.getElementById(`user-${userId}`)
-        if (card) {
-            card.style.boxShadow = '0 0 5px 2px gray'
-            card.onmouseleave = () => {
-                card.style.boxShadow = 'none'
-            }
-        }
-    }
+    // const handleCardHover = (userId) => {
+    //     const card = document.getElementById(`user-${userId}`)
+    //     if (card) {
+    //         card.style.boxShadow = '0 0 5px 2px gray'
+    //         card.onmouseleave = () => {
+    //             card.style.boxShadow = 'none'
+    //         }
+    //     }
+    // }
 
     return (
-        <div style={{ display: 'flex' }}>
-            <div style={{ width: '250px', background: '#ccc' }}>Sidebar</div>
-            <div style={{ marginLeft: '250px' }}>
-                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                    {users.map((user, index) => (
-                        <div
-                            key={index}
-                            id={`user-${index}`}
-                            style={{
-                                flexBasis: '25%',
-                                width: '300px',
-                                height: '200px',
-                                padding: '1%',
-                                border: '1px solid black',
-                                borderRadius: '10px',
-                                margin: '1%',
-                                cursor: 'pointer',
-                                boxShadow: index === activeUserId ? '0 0 5px 2px blue' : 'none',
-                                background: index === activeUserId ? '#f5f5f5' : 'white',
-                            }}
-                            onClick={() => { handleCardClick(index) }}
-                            onMouseEnter={() => handleCardHover(index)}
-                            onMouseLeave={() => handleCardHover(null)}
-                        >
-                            <h2>{user.first_name} {user.last_name}</h2>
-                        </div>
-                    ))}
-                </div>
-            </div>
+        <div style={{ marginLeft: '250px' }}>
+            {users.map((user, index) => (
+
+
+                <MDBRow key={index}>
+                    <MDBCol sm='3'></MDBCol>
+                    <MDBCol sm='6'>
+                        <MDBCard>
+                            <MDBCardBody>
+                                <MDBCardImage src={`https://picsum.photos/seed/${userActions.getRandomInt(100)}/300/100`} alt='...' position='top' />
+                                <MDBCardTitle>{user.first_name} {user.last_name}</MDBCardTitle>
+                                <MDBCardText>
+                                    {user.status}
+                                </MDBCardText>
+                                <MDBBtn onClick={() => { handleCardClick(index) }}>Go somewhere</MDBBtn>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                    <MDBCol sm='3'></MDBCol>
+                </MDBRow>
+            ))}
         </div>
     )
 }

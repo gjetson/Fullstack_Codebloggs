@@ -4,7 +4,7 @@ import React from 'react'
 import { useState } from 'react'
 
 
-function UserModal(props) {
+function UserBloggModal(props) {
     const [isOpen, setIsOpen] = useState(true)
 
     const handleClose = () => {
@@ -16,7 +16,7 @@ function UserModal(props) {
         return null
     }
 
-    console.log('props.post: ', props.post)
+    console.log(props.post)
 
     return (
         <div className="network-modal">
@@ -27,7 +27,7 @@ function UserModal(props) {
                 </button>
             </h1>
             <div className="user-profile">
-                <div className="profile-picture">JS</div>
+                <div className="profile-picture">{props.user.first_name.charAt(0).toUpperCase()}{props.user.last_name.charAt(0).toUpperCase()}</div>
                 <div className="user-info">
                     <h2>{props.user.first_name} {props.user.last_name}</h2>
                     <p>{props.user.location}</p>
@@ -40,13 +40,12 @@ function UserModal(props) {
             </div>
             <hr className="divider" />
             <div className="latest-user-post">
-                <h3>Latest Post</h3>
-                <p>{props.post[0].content}</p>
+                <h3>Post</h3>
+                <p>{props.post.content}</p>
             </div>
-
         </div>
     )
 }
 
 
-export default UserModal
+export default UserBloggModal
