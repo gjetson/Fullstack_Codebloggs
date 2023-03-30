@@ -3,6 +3,16 @@ import "react-confirm-alert/src/react-confirm-alert.css"
 import axios from "axios"
 import { useRecoilState } from 'recoil'
 import { userAtom } from '../state/user'
+import {
+    MDBCardImage,
+    MDBCard,
+    MDBCardBody,
+    MDBCardTitle,
+    MDBCardText,
+    MDBRow,
+    MDBCol,
+    MDBBtn
+} from 'mdb-react-ui-kit'
 
 const Blogg = (props) => (
     <tr>
@@ -46,6 +56,10 @@ export default function UserBloggs() {
         })
     }
 
+    const getRandomInt = (max) => {
+        return Math.floor(Math.random() * max)
+    }
+
     return (
         <div style={{ marginLeft: '250px' }}>
             <h1>Bloggzilla Phone Home</h1>
@@ -61,6 +75,40 @@ export default function UserBloggs() {
                     <tbody>{bloggList()}</tbody>
                 </table>
             </div>
+
+            {bloggs.map((blogg, index) => {
+
+                return (
+                    <MDBRow>
+                        <MDBCol sm='5'>
+                            <MDBCard>
+                                <MDBCardBody>
+                                    <MDBCardImage src={`https://picsum.photos/seed/${getRandomInt(100)}/300/100`} alt='...' position='top' />
+                                    <MDBCardTitle>Special title treatment</MDBCardTitle>
+                                    <MDBCardText>
+                                        With supporting text below as a natural lead-in to additional content.
+                                    </MDBCardText>
+                                    <MDBBtn href='#'>Go somewhere</MDBBtn>
+                                </MDBCardBody>
+                            </MDBCard>
+                        </MDBCol>
+                        <MDBCol sm='1'></MDBCol>
+                        <MDBCol sm='5'>
+                            <MDBCard>
+                                <MDBCardBody>
+                                    <MDBCardImage src={`https://picsum.photos/seed/${getRandomInt(100)}/300/100`} alt='...' position='top' />
+                                    <MDBCardTitle>Special title treatment</MDBCardTitle>
+                                    <MDBCardText>
+                                        With supporting text below as a natural lead-in to additional content.
+                                    </MDBCardText>
+                                    <MDBBtn href='#'>Go somewhere</MDBBtn>
+                                </MDBCardBody>
+                            </MDBCard>
+                        </MDBCol>
+                        <MDBCol sm='1'></MDBCol>
+                    </MDBRow>
+                )
+            })}
         </div>
     )
 }

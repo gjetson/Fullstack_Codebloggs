@@ -53,29 +53,32 @@ export default function Bloggs() {
         <div style={{ marginLeft: '250px' }}>
             <h1>Oh, no, there goes Tokyo! Go, go, Bloggzilla</h1>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {bloggs.map((blogg, index) => (
-                    <div
-                        key={index}
-                        id={`user-${index}`}
-                        style={{
-                            flexBasis: '25%',
-                            width: '300px',
-                            height: '200px',
-                            padding: '1%',
-                            border: '1px solid black',
-                            borderRadius: '10px',
-                            margin: '1%',
-                            cursor: 'pointer',
-                            boxShadow: index === activeUserId ? '0 0 5px 2px blue' : 'none',
-                            background: index === activeUserId ? '#f5f5f5' : 'white',
-                        }}
-                        onClick={() => { handleCardClick(index) }}
-                        onMouseEnter={() => handleCardHover(index)}
-                        onMouseLeave={() => handleCardHover(null)}
-                    >
-                        <h2>{blogg.user.first_name} {blogg.user.last_name}</h2>
-                    </div>
-                ))}
+                {bloggs.map((blogg, index) => {
+
+                    return (
+                        <div
+                            key={index}
+                            id={`user-${index}`}
+                            style={{
+                                flexBasis: '25%',
+                                width: '300px',
+                                height: '200px',
+                                padding: '1%',
+                                border: '1px solid black',
+                                borderRadius: '10px',
+                                margin: '1%',
+                                cursor: 'pointer',
+                                boxShadow: index === activeUserId ? '0 0 5px 2px blue' : 'none',
+                                background: index === activeUserId ? '#f5f5f5' : 'white',
+                            }}
+                            onClick={() => { handleCardClick(index) }}
+                            onMouseEnter={() => handleCardHover(index)}
+                            onMouseLeave={() => handleCardHover(null)}
+                        >
+                            <h2>{blogg.user.first_name} {blogg.user.last_name}</h2>
+                        </div>
+                    )
+                })}
             </div>
         </div>
     )
