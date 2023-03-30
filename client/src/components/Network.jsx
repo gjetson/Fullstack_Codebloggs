@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import "react-confirm-alert/src/react-confirm-alert.css"
 import { confirmAlert } from "react-confirm-alert"
 import UserModal from './UserModal'
 import axios from 'axios'
@@ -45,7 +46,7 @@ export default function Network() {
                 console.log('user: ', user)
                 return (
                     // <Confirm msg={'update'} onClose={onClose} onConfirm={() => { editAgent(); onClose() }} />
-                    <UserModal onClose={onClose} user={user} post={post[0]} />
+                    <UserModal onClose={onClose} user={user} post={post} />
                 )
             }
         })

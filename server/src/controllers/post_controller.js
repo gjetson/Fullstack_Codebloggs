@@ -95,7 +95,6 @@ const _updatePost = async (id, body, res) => {
     }
 }
 
-
 const deletePost = async (req, res) => {
     try {
         // console.log(req.params.id)
