@@ -21,9 +21,9 @@ const getComments = async (req, res) => {
     }
 }
 
-const getComment = async (req, res) => {
+const getCommentsByPostId = async (req, res) => {
     try {
-        const usr = await Comment.findById(req.params.id)
+        const usr = await Comment.find({ post: req.params.postId }).sort({ $natural: -1 })
         res.status(200).json(usr)
     } catch (err) {
         if (err.kind === 'ObjectId' && err.name === 'CastError') {
@@ -89,4 +89,4 @@ const deleteComment = async (req, res) => {
     }
 }
 
-module.exports = { createComment, getComments, getComment, addLike, updateComment, deleteComment }
+module.exports = { createComment, getComments, getCommentsByPostId, addLike, updateComment, deleteComment }
