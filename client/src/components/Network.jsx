@@ -56,7 +56,7 @@ export default function Network() {
                 console.log('user: ', user)
                 return (
                     // <Confirm msg={'update'} onClose={onClose} onConfirm={() => { editAgent(); onClose() }} />
-                    <UserModal onClose={onClose} user={user} post={post} />
+                    <UserModal onClose={onClose} user={user} post={post[0]} />
                 )
             }
         })

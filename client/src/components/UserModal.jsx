@@ -40,8 +40,8 @@ function UserModal(props) {
             </div>
             <hr className="divider" />
             <div className="latest-user-post">
-                <h3>Latest Post</h3>
-                <p>{props.post[0].content}</p>
+                <h3>Post</h3>
+                <p>{props.post.content}</p>
             </div>
 
         </div>

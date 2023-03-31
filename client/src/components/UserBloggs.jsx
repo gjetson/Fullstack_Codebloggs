@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "react-confirm-alert/src/react-confirm-alert.css"
 import { confirmAlert } from "react-confirm-alert"
-import UserBloggModal from './UserBloggModal'
+import UserModal from './UserModal'
 import axios from "axios"
 import { useRecoilState } from 'recoil'
 import { userAtom } from '../state/user'
@@ -48,7 +48,7 @@ export default function UserBloggs() {
                 console.log('user: ', user)
                 return (
                     // <Confirm msg={'update'} onClose={onClose} onConfirm={() => { editAgent(); onClose() }} />
-                    <UserBloggModal onClose={onClose} user={user} post={post} />
+                    <UserModal onClose={onClose} user={user} post={post} />
                 )
             }
         })
