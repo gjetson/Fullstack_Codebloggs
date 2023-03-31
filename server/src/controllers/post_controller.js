@@ -1,5 +1,6 @@
 const Post = require('../models/post_model')
 
+
 const createPost = async (req, res) => {
     try {
         const pst = await Post.create(req.body)
@@ -23,7 +24,7 @@ const getPosts = async (req, res) => {
 
 const getPostsByUserId = async (req, res) => {
     try {
-        const pst = await Post.find({ user: req.params.userId }).sort({ $natural: -1 })
+        const pst = await Post.find({ user: req.params.userId }).populate('comments').sort({ $natural: -1 })
         console.log(pst)
         res.status(200).json(pst)
     } catch (err) {
@@ -34,6 +35,17 @@ const getPostsByUserId = async (req, res) => {
 
 const addLike = async (req, res) => {
     _updatePost(req.params.id, { '$inc': { likes: '1' } }, res)
+}
+
+const addComment = async (postId, commentId) => {
+    try {
+        const pst = await Post.updateOne({ _id: postId }, { $push: { comments: commentId } })
+        console.log(pst)
+        res.status(200).json(pst)
+    } catch (err) {
+        console.error(err)
+        res.status(500).send({ error: err })
+    }
 }
 
 const getPost = async (req, res) => {
@@ -116,4 +128,4 @@ const deletePost = async (req, res) => {
     }
 }
 
-module.exports = { createPost, addLike, getPosts, getPostsByUserId, getPost, updatePost, deletePost, getLatestPostByUserId }
+module.exports = { createPost, addLike, getPosts, getPostsByUserId, getPost, updatePost, deletePost, getLatestPostByUserId, addComment }

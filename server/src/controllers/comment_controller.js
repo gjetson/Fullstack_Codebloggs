@@ -1,9 +1,12 @@
 const Comment = require('../models/comment_model')
+const Controller = require('../controllers/post_controller')
+
 
 const createComment = async (req, res) => {
     try {
-        const usr = await Comment.create(req.body)
-        res.status(201).json(usr)
+        let cmt = await Comment.create(req.body)
+        Controller.addComment(req.body.post, cmt._id)
+        res.status(201).json(cmt)
     } catch (err) {
         console.error(err)
         res.status(500).json(err)
@@ -23,16 +26,11 @@ const getComments = async (req, res) => {
 
 const getCommentsByPostId = async (req, res) => {
     try {
-        const usr = await Comment.find({ post: req.params.postId }).sort({ $natural: -1 })
-        res.status(200).json(usr)
+        const cmt = await Comment.find({ post: req.params.postId }).sort({ $natural: -1 })
+        res.status(200).json(cmt)
     } catch (err) {
-        if (err.kind === 'ObjectId' && err.name === 'CastError') {
-            const msg = `'${req.params.id}' is not an ID. It must be a string of 12 bytes or 24 hex characters or an integer.`
-            res.status(500).json({ error: msg })
-        } else {
-            console.error(err)
-            res.status(500).send({ error: err })
-        }
+        console.error(err)
+        res.status(500).send({ error: err })
     }
 }
 

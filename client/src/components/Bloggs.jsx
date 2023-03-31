@@ -17,7 +17,7 @@ import {
 
 export default function Bloggs() {
     const userActions = useUserActions()
-    const [activeUserId, setActiveUserId] = useState(null)
+    const [, setActiveUserId] = useState(null)
     const [bloggs, setBloggs] = useState([])
 
     useEffect(() => {
@@ -64,33 +64,7 @@ export default function Bloggs() {
         <div style={{ marginLeft: '250px' }}>
             <h1>Oh, no, there goes Tokyo! Go, go, Bloggzilla</h1>
             {bloggs.map((blogg, index) => {
-
-                // return (
-                //     <div
-                //         key={index}
-                //         id={`user-${index}`}
-                //         style={{
-                //             flexBasis: '25%',
-                //             width: '300px',
-                //             height: '200px',
-                //             padding: '1%',
-                //             border: '1px solid black',
-                //             borderRadius: '10px',
-                //             margin: '1%',
-                //             cursor: 'pointer',
-                //             boxShadow: index === activeUserId ? '0 0 5px 2px blue' : 'none',
-                //             background: index === activeUserId ? '#f5f5f5' : 'white',
-                //         }}
-                //         onClick={() => { handleCardClick(index) }}
-                //         onMouseEnter={() => handleCardHover(index)}
-                //         onMouseLeave={() => handleCardHover(null)}
-                //     >
-                //         <h2>{blogg.user.first_name} {blogg.user.last_name}</h2>
-                //     </div>
-                // )
-
                 return (
-
                     <MDBRow key={index}>
                         <MDBCol sm='3'></MDBCol>
                         <MDBCol sm='6'>
@@ -111,9 +85,7 @@ export default function Bloggs() {
                         <MDBCol sm='3'></MDBCol>
                     </MDBRow>
                 )
-
             })}
-            {/* </div> */}
         </div>
     )
 }
