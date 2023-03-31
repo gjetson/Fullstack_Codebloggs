@@ -13,7 +13,7 @@ const createPost = async (req, res) => {
 
 const getPosts = async (req, res) => {
     try {
-        const pst = await Post.find({}).populate('user').sort({ $natural: -1 })
+        const pst = await Post.find({}).populate('user').populate('comments').sort({ $natural: -1 })
         console.log(pst)
         res.status(200).json(pst)
     } catch (err) {
@@ -33,7 +33,7 @@ const getPostsByUserId = async (req, res) => {
     }
 }
 
-const addLike = async (req, res) => {
+const incrementLike = async (req, res) => {
     _updatePost(req.params.id, { '$inc': { likes: '1' } }, res)
 }
 
@@ -128,4 +128,4 @@ const deletePost = async (req, res) => {
     }
 }
 
-module.exports = { createPost, addLike, getPosts, getPostsByUserId, getPost, updatePost, deletePost, getLatestPostByUserId, addComment }
+module.exports = { createPost, incrementLike, getPosts, getPostsByUserId, getPost, updatePost, deletePost, getLatestPostByUserId, addComment }

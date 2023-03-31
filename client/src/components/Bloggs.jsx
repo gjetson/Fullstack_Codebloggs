@@ -63,58 +63,29 @@ export default function Bloggs() {
     return (
         <div style={{ marginLeft: '250px' }}>
             <h1 style={{ textAlign: "center", marginTop: "15px" }}>Bloggs</h1>
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {bloggs.map((blogg, index) => {
-
-                    // return (
-                    //     <div
-                    //         key={index}
-                    //         id={`user-${index}`}
-                    //         style={{
-                    //             flexBasis: '25%',
-                    //             width: '300px',
-                    //             height: '200px',
-                    //             padding: '1%',
-                    //             border: '1px solid black',
-                    //             borderRadius: '10px',
-                    //             margin: '1%',
-                    //             cursor: 'pointer',
-                    //             boxShadow: index === activeUserId ? '0 0 5px 2px blue' : 'none',
-                    //             background: index === activeUserId ? '#f5f5f5' : 'white',
-                    //         }}
-                    //         onClick={() => { handleCardClick(index) }}
-                    //         onMouseEnter={() => handleCardHover(index)}
-                    //         onMouseLeave={() => handleCardHover(null)}
-                    //     >
-                    //         <h2>{blogg.user.first_name} {blogg.user.last_name}</h2>
-                    //     </div>
-                    // )
-
-                    return (
-
-                        <MDBRow key={index}>
-                            <MDBCol sm='3'></MDBCol>
-                            <MDBCol sm='6'>
-                                <MDBCard>
-                                    <MDBCardBody>
-                                        <MDBCardImage src={`https://picsum.photos/seed/${userActions.getRandomInt(100)}/300/100`} alt='...' position='top' />
-                                        <MDBCardTitle>{blogg.user.first_name} {blogg.user.last_name}</MDBCardTitle>
-                                        <MDBCardText>
-                                            {blogg.user.status}
-                                        </MDBCardText>
-                                        <MDBCardText>
-                                            {blogg.content}
-                                        </MDBCardText>
-                                        <MDBBtn onClick={() => { handleCardClick(index) }}>Go somewhere</MDBBtn>
-                                    </MDBCardBody>
-                                </MDBCard>
-                            </MDBCol>
-                            <MDBCol sm='3'></MDBCol>
-                        </MDBRow>
-                    )
-
-                })}
-            </div>
+            {bloggs.map((blogg, index) => {
+                return (
+                    <MDBRow key={index}>
+                        <MDBCol sm='3'></MDBCol>
+                        <MDBCol sm='6'>
+                            <MDBCard>
+                                <MDBCardBody>
+                                    <MDBCardImage src={`https://picsum.photos/seed/${userActions.getRandomInt(100)}/300/100`} alt='...' position='top' />
+                                    <MDBCardTitle>{blogg.user.first_name} {blogg.user.last_name}</MDBCardTitle>
+                                    <MDBCardText>
+                                        {blogg.user.status}
+                                    </MDBCardText>
+                                    <MDBCardText>
+                                        {blogg.content}
+                                    </MDBCardText>
+                                    <MDBBtn onClick={() => { handleCardClick(index) }}>Go somewhere</MDBBtn>
+                                </MDBCardBody>
+                            </MDBCard>
+                        </MDBCol>
+                        <MDBCol sm='3'></MDBCol>
+                    </MDBRow>
+                )
+            })}
         </div>
     )
 }

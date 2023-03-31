@@ -1,11 +1,11 @@
 const Comment = require('../models/comment_model')
-const Controller = require('../controllers/post_controller')
+const PostController = require('../controllers/post_controller')
 
 
 const createComment = async (req, res) => {
     try {
         let cmt = await Comment.create(req.body)
-        Controller.addComment(req.body.post, cmt._id)
+        PostController.addComment(req.body.post, cmt._id)
         res.status(201).json(cmt)
     } catch (err) {
         console.error(err)
