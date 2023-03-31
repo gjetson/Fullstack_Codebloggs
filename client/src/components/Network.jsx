@@ -76,7 +76,6 @@ export default function Network() {
         <div style={{ marginLeft: '250px' }}>
             {users.map((user, index) => (
 
-
                 <MDBRow key={index}>
                     <MDBCol sm='3'></MDBCol>
                     <MDBCol sm='6'>

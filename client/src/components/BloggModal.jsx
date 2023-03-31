@@ -18,11 +18,11 @@ function BloggModal(props) {
     }
 
     const handleLikesClick = async () => {
-        console.log(likesRef)
         try {
             const res = await axios.post(`http://localhost:3004/post/like/${props.post._id}`)
             console.log(res)
             likesRef.current.innerText = `${res.data.likes} Likes`
+            props.updateLikes(props.index, res.data.likes)
             if (res && res.status === 200) {
                 return res.data
             }
