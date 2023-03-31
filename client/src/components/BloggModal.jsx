@@ -7,6 +7,7 @@ import '../css/bloggModal.css'
 function BloggModal(props) {
     const [isOpen, setIsOpen] = useState(true)
     const likesRef = React.useRef()
+    const [commentText, setCommentText] = useState('');
 
     const handleClose = () => {
         setIsOpen(false)
@@ -30,6 +31,10 @@ function BloggModal(props) {
             console.error(err)
         }
     }
+
+  const handleCommentChange = (event) => {
+    setCommentText(event.target.value);
+  };
 
     console.log(props.post)
 
@@ -59,8 +64,17 @@ function BloggModal(props) {
             </div>
 
             <div className="comment-section">
-                <h5>Comments</h5>
-                <p>{props.post.content}</p>
+                <h5>Comments:
+                <textarea 
+                className='comment-box'
+                placeholder='Type your comment here...'
+                onChange={handleCommentChange}
+                />
+                <button className="send-button" type="submit">
+                <i class="fa fa-paper-plane"></i>
+                </button>
+                </h5>                
+                <p></p>
             </div>
         </div>
     )

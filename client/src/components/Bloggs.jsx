@@ -62,8 +62,9 @@ export default function Bloggs() {
 
     return (
         <div style={{ marginLeft: '250px' }}>
-            <h1>Oh, no, there goes Tokyo! Go, go, Bloggzilla</h1>
-            {bloggs.map((blogg, index) => {
+            <h1 style={{textAlign: "center", marginTop: "15px"}}>Bloggs</h1>
+            <div style={{ display: 'flex', flexWrap: 'wrap'}}>
+                {bloggs.map((blogg, index) => {
 
                 // return (
                 //     <div
@@ -113,7 +114,6 @@ export default function Bloggs() {
                 )
 
             })}
-            {/* </div> */}
+            </div>
         </div>
-    )
-}
+    )}
