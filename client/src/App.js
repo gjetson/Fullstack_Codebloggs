@@ -9,7 +9,10 @@ import WithNav from "./components/WithNav"
 import PrivateOutlet from "./components/PrivateOutlet"
 import PrivateAdminOutlet from "./components/PrivateAdminOutlet"
 import Admin from "./components/Admin"
+import UserManager from "./components/UserManager"
 import UserBloggs from "./components/UserBloggs"
+import EditUser from "./components/EditUser"
+import ContentManager from "./components/ContentManager"
 
 function App() {
   return (
@@ -25,6 +28,15 @@ function App() {
           </Route>
           <Route path='/admin' element={<PrivateAdminOutlet />} >
             <Route path='' element={<Admin />} />
+          </Route>
+          <Route path='/users' element={<PrivateAdminOutlet />} >
+            <Route path='' element={<UserManager />} />
+          </Route>
+          <Route path='/edit/user/:id' element={<PrivateAdminOutlet />} >
+            <Route path='' element={<EditUser />} />
+          </Route>
+          <Route path='/content' element={<PrivateAdminOutlet />} >
+            <Route path='' element={<ContentManager />} />
           </Route>
           <Route path='/bloggs' element={<PrivateOutlet />} >
             <Route path='' element={<Bloggs />} />

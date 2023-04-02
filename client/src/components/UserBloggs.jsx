@@ -80,7 +80,7 @@ export default function UserBloggs() {
                                         {/* <MDBCardText>
                                             With supporting text below as a natural lead-in to additional content.
                                         </MDBCardText> */}
-                                        <MDBBtn onClick={() => { handleCardClick(index) }}>Go somewhere</MDBBtn>
+                                        <MDBBtn onClick={() => { handleCardClick(index) }}>Show Blogg</MDBBtn>
                                     </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>
@@ -111,7 +111,7 @@ export default function UserBloggs() {
                                         {/* <MDBCardText>
                                             With supporting text below as a natural lead-in to additional content.
                                         </MDBCardText> */}
-                                        <MDBBtn onClick={() => { handleCardClick(index) }}>Go somewhere</MDBBtn>
+                                        <MDBBtn onClick={() => { handleCardClick(index) }}>Show Blogg</MDBBtn>
                                     </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>

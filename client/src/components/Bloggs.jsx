@@ -78,7 +78,7 @@ export default function Bloggs() {
                                     <MDBCardText>
                                         {blogg.content}
                                     </MDBCardText>
-                                    <MDBBtn onClick={() => { handleCardClick(index) }}>Go somewhere</MDBBtn>
+                                    <MDBBtn onClick={() => { handleCardClick(index) }}>Show Blogg</MDBBtn>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>

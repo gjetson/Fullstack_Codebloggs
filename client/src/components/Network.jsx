@@ -86,7 +86,7 @@ export default function Network() {
                                 <MDBCardText>
                                     {user.status}
                                 </MDBCardText>
-                                <MDBBtn onClick={() => { handleCardClick(index) }}>Go somewhere</MDBBtn>
+                                <MDBBtn onClick={() => { handleCardClick(index) }}>Show</MDBBtn>
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>

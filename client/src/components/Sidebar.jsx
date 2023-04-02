@@ -71,6 +71,7 @@ const Sidebar = () => {
         // setSidebar(!sidebar) 
         setSidebar(true)
     }
+
     const postHandler = () => {
         console.log('click')
         confirmAlert({

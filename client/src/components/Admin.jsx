@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useUserActions } from '../util/user_actions'
 
 import {
@@ -8,7 +9,8 @@ import {
     MDBCardTitle,
     MDBCardText,
     MDBRow,
-    MDBCol
+    MDBCol,
+    MDBBtn
 } from 'mdb-react-ui-kit'
 
 export default function Admin() {
@@ -21,10 +23,12 @@ export default function Admin() {
                     <MDBCard>
                         <MDBCardBody>
                             <MDBCardImage src={`https://picsum.photos/seed/${userActions.getRandomInt(100)}/300/100`} alt='...' position='top' />
-                            <MDBCardTitle>Department of UFO Investigations</MDBCardTitle>
-                            <MDBCardText>
-                                ...or how do I get off this rock???
-                            </MDBCardText>
+                            <MDBCardTitle>User Manager</MDBCardTitle>
+                            <MDBCardText></MDBCardText>
+                            <Link to="/users">
+                                <MDBBtn>Open Manager</MDBBtn>
+                            </Link>
+
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
@@ -33,10 +37,11 @@ export default function Admin() {
                     <MDBCard>
                         <MDBCardBody>
                             <MDBCardImage src={`https://picsum.photos/seed/${userActions.getRandomInt(100)}/300/100`} alt='...' position='top' />
-                            <MDBCardTitle>Department of Future Projects</MDBCardTitle>
-                            <MDBCardText>
-                                Where is my effing flying car???
-                            </MDBCardText>
+                            <MDBCardTitle>Content Manager</MDBCardTitle>
+                            <MDBCardText></MDBCardText>
+                            <Link to="/content">
+                                <MDBBtn>Open Manager</MDBBtn>
+                            </Link>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
