@@ -97,7 +97,7 @@ function Login() {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      })
     }
   }
 

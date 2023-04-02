@@ -39,10 +39,13 @@ function UserModal(props) {
                 <p>{props.user.status}</p>
             </div>
             <hr className="divider" />
-            <div className="latest-user-post">
-                <h3>Post</h3>
-                <p>{props.post.content}</p>
-            </div>
+            {
+                props.post ?
+                    (<div className="latest-user-post">
+                        <h3>Post</h3>
+                        <p>{props.post.content}</p>
+                    </div>) : (<div></div>)
+            }
 
         </div>
     )

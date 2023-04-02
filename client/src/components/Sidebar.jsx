@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 import * as FaIcons from "react-icons/fa"
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 import { SidebarData } from "./SidebarData"
 import SubMenu from "./SubMenu"
@@ -64,6 +65,7 @@ width: 100%;
 `
 
 const Sidebar = () => {
+    const navigate = useNavigate()
     const [sidebar, setSidebar] = useState(true)
     const [user,] = useRecoilState(userAtom)
 
@@ -76,13 +78,16 @@ const Sidebar = () => {
         console.log('click')
         confirmAlert({
             customUI: ({ onClose }) => {
-
                 return (
                     // <Confirm msg={'update'} onClose={onClose} onConfirm={() => { editAgent(); onClose() }} />
-                    <Post onClose={onClose} onConfirm={(post) => { sendPost(post); onClose() }} />
+                    <Post onClose={onClose} onConfirm={(post) => {
+                        sendPost(post)
+                        onClose()
+                    }} />
                 )
             }
         })
+        navigate('/')
     }
 
     const sendPost = async (post) => {
