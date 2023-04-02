@@ -4,7 +4,8 @@ import { confirmAlert } from "react-confirm-alert"
 import UserModal from './UserModal'
 import axios from "axios"
 import { useRecoilState } from 'recoil'
-import { userAtom } from '../state/user'
+import { userAtom } from '../state/user_atom'
+import { userBloggsAtom } from "../state/user_bloggs_atom"
 import { useUserActions } from '../util/user_actions'
 import {
     MDBCardImage,
@@ -20,8 +21,9 @@ import {
 
 export default function UserBloggs() {
     const userActions = useUserActions()
+    const [userBloggs, setUserBloggs] = useRecoilState(userBloggsAtom)
     const [user,] = useRecoilState(userAtom)
-    const [bloggs, setBloggs] = useState([])
+    // const [bloggs, setBloggs] = useState([])
 
 
     useEffect(() => {
@@ -30,7 +32,7 @@ export default function UserBloggs() {
                 const res = await axios.get(`http://localhost:3004/posts/${user._id}`)
                 console.log('bloggs: ', res)
                 if (res && res.status === 200) {
-                    setBloggs(res.data)
+                    setUserBloggs(res.data)
                 }
             } catch (err) {
                 console.error(err)
@@ -38,10 +40,10 @@ export default function UserBloggs() {
         }
         getBloggs()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [bloggs.length])
+    }, [userBloggs.length])
 
     const handleCardClick = async (index) => {
-        const post = bloggs[index]
+        const post = userBloggs[index]
         confirmAlert({
             customUI: ({ onClose }) => {
                 console.log('post: ', post)
@@ -53,10 +55,10 @@ export default function UserBloggs() {
             }
         })
     }
-    if (bloggs && bloggs.length > 0) {
+    if (userBloggs && userBloggs.length > 0) {
         return (
             <div style={{ marginLeft: '250px' }}>
-                {bloggs.map((blogg, index) => {
+                {userBloggs.map((blogg, index) => {
                     if (index === 0) {
                         return (
                             <MDBRow key={index}>

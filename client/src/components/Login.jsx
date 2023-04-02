@@ -7,7 +7,7 @@ import { useUserActions } from '../util/user_actions'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import useCookie from 'react-use-cookie'
-import { userAtom } from '../state/user'
+import { userAtom } from '../state/user_atom'
 
 const appStyle = {
   height: '250px',

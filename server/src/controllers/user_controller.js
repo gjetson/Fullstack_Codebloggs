@@ -1,5 +1,6 @@
 const User = require('../models/user_model')
 const SessionConn = require('./session_controller')
+const PostConn = require('../controllers/post_controller')
 
 const createUser = async (req, res) => {
     try {
@@ -105,22 +106,17 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        // console.log(req.params.id)
+        console.log(req.params.id)
+        const pst = await PostConn.deletePostsByUserId(req.params.id)
+        console.log('deleted posts: ', pst)
         const usr = await User.findByIdAndDelete(req.params.id)
         // console.log("agent: ", agent)
         if (usr) {
             res.status(200).json(usr)
         }
-        else {
-            res.status(404).json({ err: `User not found for id: ${req.params.id}` })
-        }
     } catch (err) {
-        if (err.kind === 'ObjectId' && err.name === 'CastError') {
-            const msg = `'${req.params.id}' is not an ID. It must be a string of 12 bytes or 24 hex characters or an integer.`
-            res.status(500).json({ error: msg })
-        } else {
-            res.status(500).json({ error: err })
-        }
+        console.error(err)
+        res.status(500).json({ error: err })
     }
 }
 

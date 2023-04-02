@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router'
 import { useRecoilState } from 'recoil'
-import { userAtom } from '../state/user'
+import { userAtom } from '../state/user_atom'
 import { getCookie } from 'react-use-cookie'
 
 

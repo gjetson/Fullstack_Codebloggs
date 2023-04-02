@@ -7,7 +7,7 @@ import "react-confirm-alert/src/react-confirm-alert.css"
 import Confirm from './Confirm'
 import axios from "axios"
 import { getCookie } from 'react-use-cookie'
-import { userAtom } from '../state/user'
+import { userAtom } from '../state/user_atom'
 import { useRecoilState } from 'recoil'
 
 const User = (props) => (

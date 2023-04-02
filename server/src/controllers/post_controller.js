@@ -119,13 +119,18 @@ const deletePost = async (req, res) => {
             res.status(404).json({ err: `User not found for id: ${req.params.id}` })
         }
     } catch (err) {
-        if (err.kind === 'ObjectId' && err.name === 'CastError') {
-            const msg = `'${req.params.id}' is not an ID. It must be a string of 12 bytes or 24 hex characters or an integer.`
-            res.status(500).json({ error: msg })
-        } else {
-            res.status(500).json({ error: err })
-        }
+        res.status(500).json({ error: err })
     }
 }
 
-module.exports = { createPost, incrementLike, getPosts, getPostsByUserId, getPost, updatePost, deletePost, getLatestPostByUserId, addComment }
+const deletePostsByUserId = async (userId) => {
+    try {
+        const pst = await Post.deleteMany({ user: userId })
+        console.log('deleted posts: ', pst)
+        return pst
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+module.exports = { createPost, incrementLike, getPosts, getPostsByUserId, getPost, updatePost, deletePost, deletePostsByUserId, getLatestPostByUserId, addComment }

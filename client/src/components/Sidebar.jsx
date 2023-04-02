@@ -13,7 +13,8 @@ import Post from './Post'
 import { confirmAlert } from "react-confirm-alert"
 import "react-confirm-alert/src/react-confirm-alert.css"
 import { useRecoilState } from 'recoil'
-import { userAtom } from '../state/user'
+import { userAtom } from '../state/user_atom'
+import { userBloggsAtom } from '../state/user_bloggs_atom'
 
 const Nav = styled.div`
 background: #8d88ea;
@@ -68,6 +69,7 @@ const Sidebar = () => {
     const navigate = useNavigate()
     const [sidebar, setSidebar] = useState(true)
     const [user,] = useRecoilState(userAtom)
+    const [userBloggs, setUserBloggs] = useRecoilState(userBloggsAtom)
 
     const showSidebar = () => {
         // setSidebar(!sidebar) 
@@ -100,6 +102,8 @@ const Sidebar = () => {
             const res = await axios.post(`http://localhost:3004/post`, body)
             console.log(res)
             if (res && res.status === 201) {
+                const updated = [res.data, ...userBloggs]
+                setUserBloggs(updated)
                 return true
             }
             return false

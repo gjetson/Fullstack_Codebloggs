@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { setCookie, getCookie } from 'react-use-cookie'
 import axios from 'axios'
 import { useRecoilState } from 'recoil'
-import { userAtom } from '../state/user'
+import { userAtom } from '../state/user_atom'
 
 export { useUserActions }
 
